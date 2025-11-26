@@ -2,8 +2,8 @@
 
 Una herramienta web avanzada para calibrar tu sensibilidad en Counter-Strike 2 utilizando el método PSA (Perfect Sensitivity Approximation) con un algoritmo de decaimiento dinámico.
 
-🔗 **[PROBAR LA HERRAMIENTA AQUÍ](https://TU-USUARIO.github.io/cs2-sens-tuner/)**
-*(Reemplaza el enlace de arriba con el que te dio GitHub Pages)*
+🔗 **[PROBAR LA HERRAMIENTA AQUÍ](https://pssa-code.github.io/cs2-sens-tuner/)**
+
 
 ## ✨ Características
 - **Algoritmo PSA Dinámico:** El rango de sensibilidad se ajusta automáticamente en cada ronda para mayor precisión.
@@ -22,4 +22,5 @@ Una herramienta web avanzada para calibrar tu sensibilidad en Counter-Strike 2 u
 Si prefieres correrlo en tu PC sin internet:
 1. Descarga el archivo `index.html`.
 2. Ábrelo con Chrome, Firefox o Edge.
+
 3. ¡Listo!
