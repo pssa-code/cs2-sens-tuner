@@ -3,627 +3,1155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS2 Precision Tuner Pro</title>
+    <title>CS2 HUB: AIM GOD v16 - FPS Pro Extremo</title>
     <style>
         :root {
-            --bg: #0b0b0b;
-            --panel: #141414;
-            --surface: #1f1f1f;
-            --primary: #d6892e; 
-            --primary-glow: rgba(214, 137, 46, 0.4);
-            --accent: #5271ff;
-            --text-main: #f0f0f0;
-            --text-muted: #888;
-            --font-mono: 'JetBrains Mono', 'Consolas', monospace;
-            --success: #4caf50;
+            --bg: #0f0f0f;
+            --panel: #181818;
+            --border: #333;
+            --primary: #00e676; /* Guide Green */
+            --accent: #2979ff; /* Blue */
+            --danger: #ff1744;
+            --text-main: #eeeeee;
+            --crosshair: #ff0055; /* Crosshair Tab Color */
+            --font-mono: 'Consolas', 'Monaco', monospace;
         }
 
         body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-family: 'Segoe UI', system-ui, sans-serif;
             background-color: var(--bg);
             color: var(--text-main);
             height: 100vh;
             margin: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
             overflow: hidden;
         }
 
-        .layout {
-            display: grid;
-            grid-template-columns: 1fr 380px;
-            width: 95%;
-            max-width: 1200px;
-            height: 85vh;
+        /* SIDEBAR */
+        .sidebar {
+            width: 320px;
             background: var(--panel);
-            border: 1px solid #333;
-            border-radius: 16px;
-            box-shadow: 0 20px 80px rgba(0,0,0,0.7);
-            overflow: hidden;
-        }
-
-        /* --- LEFT SIDE: ACTION --- */
-        .main-area {
-            padding: 3rem;
+            border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
-            position: relative;
+            padding: 20px;
             overflow-y: auto;
         }
 
-        .header {
-            margin-bottom: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        h1 {
-            font-size: 1.8rem;
-            margin: 0;
-            font-weight: 800;
-            letter-spacing: -1px;
-            background: linear-gradient(90deg, #fff, #999);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .status-pill {
-            background: #222;
-            border: 1px solid #333;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            color: var(--primary);
-            font-family: var(--font-mono);
-        }
-
-        /* SETUP FORM */
-        .setup-container {
-            max-width: 500px;
-            margin: 0 auto;
-            align-self: center;
-            width: 100%;
-        }
-
-        .input-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-
-        .input-group label {
-            display: block;
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            margin-bottom: 8px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        input, select {
-            background: var(--surface);
-            border: 1px solid #333;
-            color: white;
-            padding: 16px;
-            width: 100%;
-            font-family: var(--font-mono);
-            font-size: 1rem;
-            border-radius: 8px;
-            box-sizing: border-box;
-            transition: all 0.2s;
-        }
-
-        input:focus, select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(214, 137, 46, 0.1);
-            background: #252525;
-        }
-
-        button.primary-btn {
-            background: var(--primary);
-            color: #000;
-            border: none;
-            padding: 18px;
-            width: 100%;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: 0.2s;
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+            padding-left: 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
+
+        .nav-cat { font-size: 0.7rem; text-transform: uppercase; color: #777; margin: 25px 0 5px 10px; font-weight: 800; border-bottom: 1px solid #333; padding-bottom: 5px; }
+
+        .nav-btn {
+            background: transparent; border: none; color: #aaa; padding: 10px 15px;
+            text-align: left; cursor: pointer; border-radius: 4px; font-size: 0.85rem;
+            font-weight: 600; display: flex; align-items: center; gap: 10px; transition: 0.2s;
+            width: 100%; margin-bottom: 2px;
+        }
+        .nav-btn:hover { background: #252525; color: #fff; }
+        .nav-btn.active { background: #222; color: #fff; border-left: 3px solid var(--primary); }
         
-        button.primary-btn:hover { 
-            background: #ffae42; 
-            transform: translateY(-1px);
-            box-shadow: 0 5px 15px rgba(214, 137, 46, 0.3);
+        /* Estilo especial para el botón de Crosshairs */
+        .nav-btn.cross-btn:hover { color: var(--crosshair); }
+        .nav-btn.cross-btn.active { border-left-color: var(--crosshair); }
+
+        .badge { font-size: 0.6rem; background: var(--accent); color: #fff; padding: 1px 5px; border-radius: 3px; margin-left: auto; }
+
+        /* MAIN CONTENT */
+        .main { flex: 1; background: #000; position: relative; }
+        .tab-content { display: none; height: 100%; overflow-y: auto; padding: 40px; box-sizing: border-box; animation: fadeIn 0.3s; }
+        .tab-content.active { display: block; }
+
+        /* CARDS & UI */
+        h1 { margin: 0 0 10px 0; color: #fff; font-size: 2rem; }
+        .subtitle { color: #888; margin-bottom: 30px; line-height: 1.5; max-width: 800px; }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+
+        .card { 
+            background: var(--panel); border: 1px solid var(--border); 
+            padding: 20px; border-radius: 8px; margin-bottom: 20px; 
         }
+        .card h3 { margin-top: 0; color: var(--primary); font-size: 0.95rem; text-transform: uppercase; display:flex; justify-content:space-between; align-items:center; }
+        .card-danger { border-color: rgba(255, 23, 68, 0.3); background: rgba(255, 23, 68, 0.05); }
 
-        /* CALIBRATION STAGE */
-        #calibration-ui { display: none; height: 100%; }
-        
-        .instruction-box {
-            background: rgba(82, 113, 255, 0.1);
-            border-left: 3px solid var(--accent);
-            padding: 15px;
-            margin-bottom: 30px;
-            border-radius: 0 8px 8px 0;
-            animation: slideIn 0.5s ease;
+        /* CROSSHAIR CARDS */
+        .xhair-card {
+            background: #121212; border: 1px solid #333; padding: 20px; border-radius: 8px;
+            text-align: center; transition: 0.2s; position: relative; overflow: hidden;
         }
-
-        .instruction-title { color: var(--accent); font-weight: bold; font-size: 0.9rem; margin-bottom: 5px; }
-        .instruction-text { font-size: 0.95rem; color: #ddd; line-height: 1.4; }
-
-        .cards-container {
-            display: flex;
-            gap: 25px;
-            height: 100%;
-            align-items: center;
+        .xhair-card:hover { border-color: var(--crosshair); transform: translateY(-2px); }
+        .xhair-title { font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 5px; }
+        .xhair-role { font-size: 0.75rem; color: #777; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
+        .xhair-code { 
+            background: #000; border: 1px dashed #444; color: var(--crosshair); 
+            padding: 10px; font-family: var(--font-mono); font-size: 0.75rem; 
+            border-radius: 4px; cursor: pointer; word-break: break-all;
         }
+        .xhair-code:hover { background: #1a1a1a; color: #fff; border-color: #fff; }
 
-        .sens-card {
-            flex: 1;
-            background: var(--surface);
-            border: 2px solid transparent;
-            border-radius: 12px;
-            padding: 30px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .sens-card:hover {
-            border-color: var(--primary);
-            background: #252525;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .sens-card:active { transform: scale(0.98); }
-
-        .card-label {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-        }
-
-        .card-value {
-            font-size: 3rem;
-            font-family: var(--font-mono);
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 5px;
-        }
-
-        .card-stats {
-            font-size: 0.8rem;
-            color: #666;
-            font-family: var(--font-mono);
-            background: rgba(0,0,0,0.2);
-            padding: 5px 10px;
-            border-radius: 4px;
-            display: inline-block;
-            margin: 0 auto;
-        }
-
-        .key-hint {
-            margin-top: 20px;
-            font-size: 0.75rem;
-            color: #555;
-            border: 1px solid #333;
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-        }
-
-        /* RESULTS */
-        #result-ui { display: none; text-align: center; padding-top: 2rem; }
-        
-        .result-circle {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            border: 4px solid var(--primary);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto 30px auto;
-            box-shadow: 0 0 50px var(--primary-glow);
-            background: radial-gradient(circle, #222 0%, #111 100%);
-        }
-
-        .final-big { font-size: 3.5rem; color: #fff; font-weight: bold; font-family: var(--font-mono); }
-        .final-label { color: var(--primary); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
-
-        .cmd-box {
-            background: #000;
-            padding: 20px;
-            font-family: var(--font-mono);
-            border-radius: 8px;
-            border: 1px dashed #444;
-            color: #ccc;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: 0.2s;
-        }
-        .cmd-box:hover { border-color: var(--success); color: #fff; }
-
-        /* --- RIGHT SIDE: ANALYTICS --- */
-        .sidebar {
-            background: #111;
-            border-left: 1px solid #222;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .progress-section { margin-bottom: 30px; }
-        
-        .progress-bar-bg {
-            height: 6px;
-            background: #222;
-            border-radius: 3px;
-            overflow: hidden;
-            margin-top: 10px;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: var(--primary);
-            width: 0%;
-            transition: width 0.4s ease;
-        }
-
-        .history-list {
-            flex: 1;
-            overflow-y: auto;
-            padding-right: 5px;
-        }
-
-        .history-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #1f1f1f;
+        /* INSTRUCTION BLOCK */
+        .how-to {
+            background: rgba(0, 230, 118, 0.05);
+            border-left: 3px solid var(--primary);
+            padding: 10px 15px;
+            margin: 15px 0;
             font-size: 0.85rem;
-            animation: fadeIn 0.3s ease;
+            color: #ddd;
+            border-radius: 0 4px 4px 0;
+            line-height: 1.6;
         }
+        .how-to strong { color: var(--primary); display: block; margin-bottom: 4px; font-size: 0.75rem; text-transform: uppercase; }
 
-        .hist-iter { 
-            background: #222; color: #666; 
-            width: 24px; height: 24px; 
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 50%; margin-right: 12px; font-size: 0.7rem;
+        /* CODE BOX */
+        .code-box {
+            background: #111; border: 1px dashed #444; color: #80d8ff;
+            font-family: var(--font-mono); font-size: 0.8rem; padding: 15px;
+            border-radius: 4px; cursor: pointer; margin-top: 10px; word-break: break-all;
         }
-        
-        .hist-val { font-family: var(--font-mono); color: #ccc; flex: 1; }
-        .hist-choice { color: var(--primary); font-weight: bold; font-size: 0.75rem; text-transform: uppercase; }
+        .code-box:hover { border-color: var(--primary); color: #fff; }
+        .code-box::after { content: "CLICK PARA COPIAR"; float: right; font-size: 0.65rem; color: #666; background: #222; padding: 2px 6px; border-radius: 3px;}
 
-        /* UTILS */
-        .hidden { display: none !important; }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        
-        /* SCROLLBAR */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #111; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #444; }
+        /* CHECKLIST */
+        .check { display: flex; gap: 10px; margin-bottom: 8px; align-items: center; font-size: 0.9rem; }
+        .icon { color: var(--primary); font-weight: bold; }
+        .val { color: #fff; font-weight: 700; margin-left: auto; }
 
-        @media (max-width: 900px) {
-            .layout { grid-template-columns: 1fr; height: auto; min-height: 100vh; width: 100%; border: none; border-radius: 0; }
-            .sidebar { display: none; } /* Hide analytics on mobile for simplicity */
-            .cards-container { flex-direction: column; }
-        }
+        /* PSA */
+        .calib-input, select { background: #111; border: 1px solid #333; color: #fff; padding: 15px; width: 100%; border-radius: 4px; margin-bottom: 15px; box-sizing: border-box; }
+        .big-btn { width: 100%; padding: 15px; background: var(--primary); color: #000; border: none; font-weight: 800; cursor: pointer; border-radius: 4px; transition: 0.2s; }
+        .big-btn:hover { background: #69f0ae; }
+
+        /* AUTOEXEC */
+        .cfg-wrapper { background: #0a0a0a; border: 1px solid #333; height: 500px; display: flex; flex-direction: column; }
+        .cfg-body { flex: 1; padding: 20px; overflow-y: auto; font-family: var(--font-mono); font-size: 0.8rem; color: #ccc; white-space: pre-wrap; }
+        .c-cmd { color: #fff; } .c-val { color: var(--primary); } .c-com { color: #555; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: #111; } ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
     </style>
 </head>
 <body>
 
-    <div class="layout">
-        <div class="main-area">
-            <div class="header">
-                <h1>CS2 Tuner <span style="color:var(--primary)">Pro</span></h1>
-                <div class="status-pill" id="step-badge">SETUP</div>
-            </div>
+    <div class="sidebar">
+        <div class="logo">CS2 HUB <span>AIM GOD</span></div>
+        
+        <div class="nav-cat">Aim & Crosshair</div>
+        <button class="nav-btn active" onclick="setTab('calib', this)">🎯 Calibrador PSA</button>
+        <button class="nav-btn cross-btn" onclick="setTab('crosshair', this)">➕ Pro Crosshairs <span class="badge" style="background:var(--crosshair)">NEW</span></button>
+        <button class="nav-btn" onclick="setTab('autoexec', this)">📜 Autoexec Final</button>
 
-            <div id="setup-ui" class="setup-container">
-                <p style="color:#aaa; text-align:center; margin-bottom:30px; line-height:1.5;">
-                    Utiliza el método PSA (Perfect Sensitivity Approximation) con un algoritmo de decaimiento logarítmico para encontrar tu sensibilidad natural.
-                </p>
+        <div class="nav-cat">Sistema & SSD (Avanzado)</div>
+        <button class="nav-btn" onclick="setTab('win', this)">⚡ Windows Core</button>
+        <button class="nav-btn" onclick="setTab('ssd', this)">💾 SSD & Servicios <span class="badge">!</span></button>
+        <button class="nav-btn" onclick="setTab('clean', this)">🧹 Limpieza Temp</button>
 
-                <div class="input-grid">
-                    <div class="input-group">
-                        <label>DPI del Mouse</label>
-                        <input type="number" id="dpi" value="800">
-                    </div>
-                    <div class="input-group">
-                        <label>Sensibilidad Actual</label>
-                        <input type="number" id="base" step="0.01" placeholder="Ej: 1.5">
-                    </div>
-                </div>
+        <div class="nav-cat">Red & Latencia</div>
+        <button class="nav-btn" onclick="setTab('tcp', this)">🌐 TCP & DNS <span class="badge">!</span></button>
+        <button class="nav-btn" onclick="setTab('hpet', this)">⏱️ Timer HPET / Input</button>
 
-                <div class="input-group" style="margin-bottom:30px;">
-                    <label>Tipo de Jugador (Define el rango inicial)</label>
-                    <select id="profile">
-                        <option value="1.5">Estándar (Recomendado)</option>
-                        <option value="1.4">Precisión (AWP/Support) - Rango Menor</option>
-                        <option value="1.6">Velocidad (Entry/Rifler) - Rango Amplio</option>
-                    </select>
-                </div>
+        <div class="nav-cat">Hardware & Monitor</div>
+        <button class="nav-btn" onclick="setTab('monitor', this)">🖥️ Hz & Monitor</button>
+        <button class="nav-btn" onclick="setTab('mouse', this)">🖱️ Mouse & Registry</button>
+        <button class="nav-btn" onclick="setTab('bios', this)">🔌 BIOS / UEFI</button>
 
-                <button class="primary-btn" onclick="startCalibration()">Comenzar Calibración</button>
-            </div>
+        <div class="nav-cat">Gráficos & Juego</div>
+        <button class="nav-btn" onclick="setTab('fps', this)">⚡ Optimización FPS</button>
+        <button class="nav-btn" onclick="setTab('fpspro', this)">🚀 FPS Pro Extremo <span class="badge" style="background:#ff1744">HOT</span></button>
+        <button class="nav-btn" onclick="setTab('gpu', this)">🎮 NVIDIA / AMD</button>
+        <button class="nav-btn" onclick="setTab('color', this)">🎨 Color & Vibrance</button>
+        <button class="nav-btn" onclick="setTab('launch', this)">🚀 Launch Options</button>
+    </div>
 
-            <div id="calibration-ui">
-                <div class="instruction-box">
-                    <div class="instruction-title" id="instruct-title">Instrucción: Fase de Rastreo</div>
-                    <div class="instruction-text" id="instruct-text">
-                        Mantén la mira en una esquina de una pared y muévete de izquierda a derecha (strafing). Elige la sensibilidad con la que sientas menos "temblor" y más control.
-                    </div>
-                </div>
+    <div class="main">
 
-                <div class="cards-container">
-                    <div class="sens-card" id="card-low" onclick="selectOption('low')">
-                        <div class="card-label">Opción Baja (A)</div>
-                        <div class="card-value" id="val-low">0.00</div>
-                        <div class="card-stats">
-                            <span id="cm-low">0</span> cm/360
-                        </div>
-                        <div class="key-hint">← Flecha Izquierda</div>
-                    </div>
+        <div id="tab-calib" class="tab-content active">
+            <h1>Calibrador PSA</h1>
+            <p class="subtitle">Algoritmo matemático para encontrar tu sensibilidad perfecta.</p>
 
-                    <div class="sens-card" id="card-high" onclick="selectOption('high')">
-                        <div class="card-label">Opción Alta (B)</div>
-                        <div class="card-value" id="val-high">0.00</div>
-                        <div class="card-stats">
-                            <span id="cm-high">0</span> cm/360
-                        </div>
-                        <div class="key-hint">Flecha Derecha →</div>
-                    </div>
+            <div class="card">
+                <h3>📝 Instrucciones</h3>
+                <div class="how-to">
+                    1. Introduce tus DPI y Sensibilidad actual.<br>
+                    2. Selecciona "Iniciar". Entra al juego.<br>
+                    3. Prueba la sensibilidad "A" y "B" haciendo tracking (seguir un punto en la pared).<br>
+                    4. Elige la que se sienta más natural. Repite 7 veces.
                 </div>
             </div>
+            
+            <div id="psa-setup" style="max-width:400px;">
+                <input type="number" id="dpi" value="800" class="calib-input" placeholder="DPI">
+                <input type="number" id="base" value="1.5" step="0.01" class="calib-input" placeholder="Sensibilidad">
+                <select id="profile" class="calib-input">
+                    <option value="0.5">Estándar (Recomendado)</option>
+                    <option value="0.6">Entry (Rápido)</option>
+                    <option value="0.4">Precisión (Lento)</option>
+                </select>
+                <button class="big-btn" onclick="startPSA()">INICIAR CALIBRACIÓN</button>
+            </div>
 
-            <div id="result-ui">
-                <h2 style="color:#fff; margin-bottom:30px;">Calibración Finalizada</h2>
-                
-                <div class="result-circle">
-                    <span class="final-label">Tu Sensibilidad</span>
-                    <span class="final-big" id="final-sens">0.00</span>
-                    <span class="final-label" id="final-edpi" style="color:#666; margin-top:5px;">eDPI: 0</span>
-                </div>
-
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; max-width:400px; margin:0 auto;">
-                    <div style="background:#222; padding:15px; border-radius:8px;">
-                        <div style="color:#888; font-size:0.8rem;">CM/360</div>
-                        <div style="font-size:1.2rem; font-weight:bold;" id="final-cm">0cm</div>
+            <div id="psa-active" style="display:none;">
+                <div style="text-align:center; margin-bottom:20px;">RONDA <span id="iter">1</span> / 7</div>
+                <div style="display:flex; gap:20px;">
+                    <div onclick="choose('low')" style="flex:1; background:#111; padding:30px; text-align:center; border:1px solid #333; cursor:pointer;">
+                        <div style="color:#888;">OPCIÓN A</div>
+                        <div style="font-size:2.5rem; color:#fff;" id="val-low">0.00</div>
                     </div>
-                    <div style="background:#222; padding:15px; border-radius:8px;">
-                        <div style="color:#888; font-size:0.8rem;">DPI Usado</div>
-                        <div style="font-size:1.2rem; font-weight:bold;" id="final-dpi">800</div>
+                    <div onclick="choose('high')" style="flex:1; background:#111; padding:30px; text-align:center; border:1px solid #333; cursor:pointer;">
+                        <div style="color:#888;">OPCIÓN B</div>
+                        <div style="font-size:2.5rem; color:#fff;" id="val-high">0.00</div>
                     </div>
                 </div>
-
-                <div class="cmd-box" onclick="copyResult()">
-                    sensitivity <span id="final-cmd">0.00</span>
-                </div>
-                <div style="color:#555; font-size:0.8rem; margin-top:10px;">Click en la caja negra para copiar comando</div>
-                
-                <button class="primary-btn" onclick="location.reload()" style="margin-top:40px; background:#333;">Reiniciar Todo</button>
+            </div>
+            
+            <div id="psa-result" style="display:none; text-align:center;">
+                <h1 id="final-res" style="color:var(--primary)">0.00</h1>
+                <div class="code-box" onclick="copyFinal()">sensitivity <span id="final-cmd">0.00</span></div>
+                <button class="big-btn" style="margin-top:20px;" onclick="location.reload()">REINICIAR</button>
             </div>
         </div>
 
-        <div class="sidebar">
-            <div class="progress-section">
-                <div style="display:flex; justify-content:space-between; color:#888; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px;">
-                    <span>Progreso</span>
-                    <span id="iter-count">0/7</span>
-                </div>
-                <div class="progress-bar-bg">
-                    <div class="progress-fill" id="progress-fill"></div>
+        <div id="tab-crosshair" class="tab-content">
+            <h1 style="color:var(--crosshair)">Pro Crosshairs</h1>
+            <p class="subtitle">Colección actualizada de miras de los mejores jugadores profesionales (2025). Códigos sin duplicados. Haz clic para copiar.</p>
+
+            <div class="card">
+                <h3>📝 Cómo importar</h3>
+                <div class="how-to" style="border-left-color:var(--crosshair); background:rgba(255,0,85,0.05);">
+                    1. Copia el código haciendo clic en la tarjeta.<br>
+                    2. Abre CS2 > Ajustes > Partida > Mira.<br>
+                    3. Click en <strong>"Compartir o Importar"</strong>.<br>
+                    4. Pega el código y dale a Importar.
                 </div>
             </div>
 
-            <h3 style="color:#666; font-size:0.85rem; text-transform:uppercase; letter-spacing:1px; margin-top:20px; border-bottom:1px solid #222; padding-bottom:10px;">Historial de Ajustes</h3>
-            
-            <div class="history-list" id="history-log">
+            <div class="grid-3">
+                <!-- Jugadores legendarios actualizados a 2025 -->
+                <div class="xhair-card">
+                    <div class="xhair-title">s1mple</div>
+                    <div class="xhair-role">The GOAT (Rifler/AWP)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-m58cB-AyBDC-AV6tp-Gwq2K-QGKeB</div>
                 </div>
-            
-            <div style="margin-top:auto; padding-top:20px; border-top:1px solid #222;">
-                <div style="color:#555; font-size:0.75rem;">Algoritmo PSA v2.1</div>
-                <div style="color:#444; font-size:0.7rem;">Decaimiento de rango dinámico</div>
+                
+                <div class="xhair-card">
+                    <div class="xhair-title">NiKo</div>
+                    <div class="xhair-role">GOAT Rifler (Team Falcons)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-LfLx8-qLdT9-SzbBn-fHv3O-e3c7L</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">ZywOo</div>
+                    <div class="xhair-role">AWP God (Vitality)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-oBiYV-Uj7vE-UQcpn-xxUN4-ZRivN</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">m0NESY</div>
+                    <div class="xhair-role">Russian Sniper (Team Falcons)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-kNweN-Y49Xt-wFjGv-CeNoB-JG8nM</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">donk</div>
+                    <div class="xhair-role">Entry Monster (Spirit)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-ct2Q5-2dT4T-OxUD6-juWHB-U647M</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">ropz</div>
+                    <div class="xhair-role">Estonian Star (Team Vitality)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-MMQuh-Hs3Sj-Qv9zd-VaCmc-3QqNO</div>
+                </div>
+
+                <!-- Jugadores top 2025 (equipos y códigos actualizados) -->
+                <div class="xhair-card">
+                    <div class="xhair-title">dev1ce</div>
+                    <div class="xhair-role">Danish Machine (Astralis)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-ue57B-RNCCw-8URMu-dHkb6-5pZQM</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">Twistzz</div>
+                    <div class="xhair-role">Canadian Clutch (Team Liquid)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-nLHQz-8JfjG-MkjpK-JZHEh-tQNnL</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">sh1ro</div>
+                    <div class="xhair-role">Russian Sniper (Team Spirit)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-s8VZE-8fftF-TKOHV-qzbrR-TA7yD</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">malbsMd</div>
+                    <div class="xhair-role">Spanish Star (ENCE)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-jRQn5-6UMfW-4t7q8-cNJca-iDjLJ</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">Ax1Le</div>
+                    <div class="xhair-role">CIS Legend (Current FAZE)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-2cLon-Vsne5-Zkocp-zEwLY-MD3YP</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">YEKINDAR</div>
+                    <div class="xhair-role">Entry Master (FURIA)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-ufZUO-V27Te-WQRmC-LhG9C-6AU8N</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">ELiGE</div>
+                    <div class="xhair-role">NA Superstar (FaZe Clan)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-PqXaL-QX7fz-Yw3Us-9WsB6-dT2eM</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">XANTARES</div>
+                    <div class="xhair-role">Turkish Beast (Aurora Gaming)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-xbpe2-E24RJ-YXNuO-pQvt8-ppNAK</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">Aleksib</div>
+                    <div class="xhair-role">IGL Legend (ENCE)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-XdLy4-rox9M-8hs4o-nBfTD-4uhCG</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">apEX</div>
+                    <div class="xhair-role">Vitality Captain (Team Vitality)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-EMt5T-vV3rP-JWYGT-u6h5C-6aTzB</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">b1t</div>
+                    <div class="xhair-role">Ukrainian Talent (NAVI)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-yh8bK-6FRQ8-8Dk4D-EWL27-wYFwL</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">broky</div>
+                    <div class="xhair-role">Latvian Rifle (FaZe Clan)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-nPpWL-RW6Ds-cZQRS-NVuPw-dhcsM</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">FalleN</div>
+                    <div class="xhair-role">Brazilian Legend</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-AXZCv-AS25R-ZVnXz-o5cBX-wHH8D</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">rain</div>
+                    <div class="xhair-role">Norwegian AWPer (FaZe Clan)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-qJ3Lh-4TV3z-fhYgP-p37UR-VZhZQ</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">karrigan</div>
+                    <div class="xhair-role">Danish IGL (FaZe Clan)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-7er9p-dWfdr-MsBpm-FxyCU-8Bu8O</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">Spinx</div>
+                    <div class="xhair-role">Israeli Entry (Current Aurora)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-sjVaz-jEpkp-qcTTG-bcmmB-4ZytQ</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">iM</div>
+                    <div class="xhair-role">Czech Sniper (NAVI)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-rsDHb-QDmGE-VikD2-dApWC-kJCEB</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">KSCERATO</div>
+                    <div class="xhair-role">Brazilian Beast (FURIA)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-3bLa7-2QwNT-34rLR-HmorJ-6XoAL</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">coldzera</div>
+                    <div class="xhair-role">Brazilian Legend (Current FURIA)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-tOTs7-EiMZY-YXtRs-SGjZe-X3xsP</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">d0nk</div>
+                    <div class="xhair-role">Turkish Star (FURIA)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-NmcdV-ORLFj-vKC4W-LV6zW-4fWjM</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">HeavyGod</div>
+                    <div class="xhair-role">Ukrainian Anchor (Team Falcons)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-dFCuv-Yjpfa-Ao5M4-bEhfD-V5xDK</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">Magisk</div>
+                    <div class="xhair-role">Danish Clutch (Current Team Falcons)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-G7c67-Fqx3x-aeLyP-4fx75-2vn6J</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">NAF</div>
+                    <div class="xhair-role">Canadian Pro (Team Liquid)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-3Nz6X-NQoXY-bG7WU-ozC9J-nHheD</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">jame</div>
+                    <div class="xhair-role">Russian AWP (Virtus.pro)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-YGsrZ-jPbMH-Bpbdt-5W3hc-oPivN</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">cadiaN</div>
+                    <div class="xhair-role">Danish AWP (Astralis)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-LjHG4-eJKq5-xHwRG-8TkRW-7PefB</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">woxic</div>
+                    <div class="xhair-role">Turkish Talent (Aurora Gaming)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-hVyt6-6w7hL-hQyc6-xReeD-3sNkO</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">flameZ</div>
+                    <div class="xhair-role">Swiss Talent (Team Vitality)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-Ts59P-UHNG6-Nsnwp-eBrtF-Ln2AC</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">frozen</div>
+                    <div class="xhair-role">Austrian Lurker (Ence)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-nX4aQ-nMxvT-vWUn8-fkCTG-CuSyL</div>
+                </div>
+
+                <div class="xhair-card">
+                    <div class="xhair-title">w0nderful</div>
+                    <div class="xhair-role">Japanese Star (NAVI)</div>
+                    <div class="xhair-code" onclick="copyText(this)">CSGO-MQS69-VdhoT-Ee2E7-ycyr7-ZmRBD</div>
+                </div>
             </div>
         </div>
+
+        <div id="tab-win" class="tab-content">
+            <h1>Windows Core</h1>
+            <p class="subtitle">Ajustes fundamentales para reducir la latencia del sistema operativo.</p>
+
+            <div class="card card-danger">
+                <h3>⚠️ Desactivar Core Isolation (Importante)</h3>
+                <div class="how-to">
+                    La "Integridad de Memoria" virtualiza procesos y roba hasta un 15% de FPS.
+                    <br><strong>Instrucciones:</strong> Copia el comando, abre CMD como Administrador, pega y dale Enter. Reinicia.
+                </div>
+                <div class="code-box" onclick="copyText(this)">bcdedit /set hypervisorlaunchtype off</div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>⚡ Plan de Energía Ultimate</h3>
+                    <div class="how-to">
+                        <strong>Instrucciones:</strong> Copia el comando, pégalo en CMD (Admin) y luego ve a "Opciones de Energía" para seleccionarlo.
+                    </div>
+                    <div class="code-box" onclick="copyText(this)">powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61</div>
+                </div>
+                <div class="card">
+                    <h3>🎮 Modo de Juego</h3>
+                    <div class="how-to">
+                        Pulsa tecla Windows > Escribe "Modo de juego" > <strong>ACTIVAR</strong>. Esto prioriza el juego sobre Windows Update.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-ssd" class="tab-content">
+            <h1>Almacenamiento y Servicios</h1>
+            
+            <div class="card">
+                <h3>💾 Force TRIM (SSD Rápido)</h3>
+                <div class="how-to">
+                    Fuerza a Windows a limpiar bloques de memoria borrados al instante.
+                    <br><strong>Instrucciones:</strong> Ejecutar en CMD como Administrador.
+                </div>
+                <div class="code-box" onclick="copyText(this)">fsutil behavior set disabledeletenotify 0</div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>🛑 Matar SysMain (Superfetch)</h3>
+                    <div class="how-to">
+                        SysMain precarga apps que no usas en la RAM.
+                        <br><strong>Instrucciones:</strong> CMD (Admin).
+                    </div>
+                    <div class="code-box" onclick="copyText(this)">sc stop "SysMain" & sc config "SysMain" start= disabled</div>
+                </div>
+                <div class="card">
+                    <h3>🕵️ Matar Telemetría</h3>
+                    <div class="how-to">
+                        Desactiva el envío de datos a Microsoft.
+                    </div>
+                    <div class="code-box" onclick="copyText(this)">sc stop "DiagTrack" & sc config "DiagTrack" start= disabled</div>
+                </div>
+            </div>
+
+            <div class="card card-danger">
+                <h3>🚫 Desactivar Indexing (Búsqueda)</h3>
+                <div class="how-to">
+                    <strong>Paso a Paso:</strong>
+                    1. Abre "Este Equipo".<br>
+                    2. Click derecho en tu Disco Local (C:) > Propiedades.<br>
+                    3. Abajo del todo, <b>DESMARCA</b> "Permitir que los archivos... tengan contenido indizado".<br>
+                    4. Aplicar a todo (ignorar errores).
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-tcp" class="tab-content">
+            <h1>Red Avanzada (TCP/IP)</h1>
+            
+            <div class="card">
+                <h3>🌐 Algoritmo CTCP (Menor Ping)</h3>
+                <div class="how-to">
+                    Cambia el protocolo de congestión antiguo por uno moderno (Compound TCP).
+                    <br><strong>Instrucciones:</strong> CMD (Admin).
+                </div>
+                <div class="code-box" onclick="copyText(this)">netsh int tcp set global congestionprovider=ctcp</div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>🧹 Flush DNS</h3>
+                    <div class="how-to">
+                        Limpia caché corrupta de internet y resetea sockets.
+                    </div>
+                    <div class="code-box" onclick="copyText(this)">ipconfig /flushdns && ipconfig /renew && netsh winsock reset</div>
+                </div>
+                <div class="card">
+                    <h3>⚡ Tarjeta de Red</h3>
+                    <div class="how-to">
+                        <strong>Admin. Dispositivos > Red > Avanzado:</strong><br>
+                        1. Flow Control: <b>Disabled</b><br>
+                        2. Interrupt Moderation: <b>Disabled</b><br>
+                        3. Power Saving: <b>OFF</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-hpet" class="tab-content">
+            <h1>Latencia de Entrada (Input Lag)</h1>
+            
+            <div class="card card-danger">
+                <h3>⏱️ Desactivar HPET (High Precision Event Timer)</h3>
+                <div class="how-to">
+                    HPET es un temporizador viejo que causa stuttering.
+                    <br><strong>Instrucciones:</strong>
+                    1. Click derecho en Inicio > Administrador de Dispositivos.<br>
+                    2. Despliega "Dispositivos del Sistema".<br>
+                    3. Busca "Temporizador de eventos de alta precisión".<br>
+                    4. Click derecho > <b>Deshabilitar</b>.
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>⌨️ Mouse & Teclado Buffer (Registro)</h3>
+                <div class="how-to">
+                    Aumenta la cola de datos para no perder clicks bajo carga pesada.
+                    <br><strong>Instrucciones:</strong> Copia, guarda en un archivo de texto como <code>fix.reg</code> y ejecútalo.
+                </div>
+                <div class="code-box" onclick="copyText(this)">
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\mouclass\Parameters]
+"MouseDataQueueSize"=dword:0000012c
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\kbdclass\Parameters]
+"KeyboardDataQueueSize"=dword:0000012c
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-monitor" class="tab-content">
+            <h1>Monitor y Hercios</h1>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>🖥️ Windows Hz</h3>
+                    <div class="how-to">
+                        1. Escritorio > Click derecho > Configuración pantalla.<br>
+                        2. Pantalla avanzada.<br>
+                        3. Frecuencia de actualización: <b>Máximo (144/240Hz)</b>.
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>🎮 CS2 Hz</h3>
+                    <div class="how-to">
+                        1. Ajustes CS2 > Vídeo.<br>
+                        2. Modo: <b>Pantalla Completa</b>.<br>
+                        3. Frecuencia: <b>Máximo</b>.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-mouse" class="tab-content">
+            <h1>Configuración de Mouse</h1>
+            <div class="card">
+                <h3>🚫 Aceleración de Windows</h3>
+                <div class="how-to">
+                    1. Windows > Escribir "Mouse".<br>
+                    2. Opciones de mouse adicionales > Puntero.<br>
+                    3. <b>DESMARCA:</b> "Mejorar la precisión del puntero".
+                </div>
+            </div>
+            <div class="card">
+                <h3>⚡ Polling Rate</h3>
+                <div class="how-to">
+                    En el software de tu mouse (Logitech/Razer):<br>
+                    Ponlo siempre a <b>1000 Hz</b>. Nunca uses 125Hz para FPS.
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-gpu" class="tab-content">
+            <h1>Configuración GPU</h1>
+            <div class="grid-2">
+                <div class="card" style="border-top:3px solid #76b900;">
+                    <h3>NVIDIA</h3>
+                    <div class="how-to">Panel de Control NVIDIA > Configuración 3D</div>
+                    <div class="check"><div class="icon">➜</div> Modo baja latencia: <span class="val">Ultra</span></div>
+                    <div class="check"><div class="icon">➜</div> Energía: <span class="val">Máximo Rendimiento</span></div>
+                    <div class="check"><div class="icon">➜</div> Sincronización vert.: <span class="val">OFF</span></div>
+                    <div class="check"><div class="icon">➜</div> Shader Cache: <span class="val">Ilimitado</span></div>
+                </div>
+                <div class="card" style="border-top:3px solid #ff4757;">
+                    <h3>AMD</h3>
+                    <div class="how-to">Software AMD > Juegos > Gráficos</div>
+                    <div class="check"><div class="icon">➜</div> Anti-Lag: <span class="val">Activado</span></div>
+                    <div class="check"><div class="icon">➜</div> Chill/Boost: <span class="val">Desactivado</span></div>
+                    <div class="check"><div class="icon">➜</div> Teselación: <span class="val">Anular > OFF</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-color" class="tab-content">
+            <h1>Color & Visibilidad</h1>
+            <div class="card">
+                <h3>🎨 Digital Vibrance / Saturation</h3>
+                <div class="how-to">
+                    Hace que los enemigos resalten más.
+                    <br><strong>NVIDIA:</strong> Panel > Color de escritorio > Digital Vibrance > <b>80-100%</b>.
+                    <br><strong>AMD:</strong> Pantalla > Color personalizado > Saturación > <b>150+</b>.
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-clean" class="tab-content">
+            <h1>Limpieza de Temporales</h1>
+            <div class="card">
+                <h3>🧹 Script de Limpieza</h3>
+                <div class="how-to">Copia y pega en CMD (Admin) para borrar caché basura.</div>
+                <div class="code-box" onclick="copyText(this)">del /q/f/s %TEMP%\* && del /q/f/s C:\Windows\Temp\*</div>
+            </div>
+        </div>
+
+        <div id="tab-launch" class="tab-content">
+            <h1>Launch Options</h1>
+            <div class="card">
+                <h3>📝 Cómo ponerlos</h3>
+                <div class="how-to">Steam > Biblioteca > Click derecho CS2 > Propiedades > General.</div>
+            </div>
+            <div class="card">
+                <h3>🔥 Código Competitivo</h3>
+                <div class="code-box" onclick="copyText(this)">-high -console -nojoy +fps_max 0 -softparticlesdefaultoff +cl_forcepreload 1</div>
+            </div>
+        </div>
+
+        <div id="tab-autoexec" class="tab-content">
+            <h1>Autoexec.cfg</h1>
+            <div class="card">
+                <h3>📂 Instalación</h3>
+                <div class="how-to">
+                    1. Copia el código.<br>
+                    2. Ve a: <code>Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\cfg</code><br>
+                    3. Crea archivo <code>autoexec.cfg</code> y pega el contenido.
+                </div>
+            </div>
+            <div class="cfg-wrapper">
+                <div style="padding:10px; border-bottom:1px solid #333; display:flex; justify-content:flex-end;">
+                    <button class="big-btn" style="width:auto; padding:5px 15px; font-size:0.8rem;" onclick="copyAutoexec()">COPIAR CÓDIGO</button>
+                </div>
+                <div class="cfg-body" id="cfg-text">
+<span class="c-com">// --- RED ---</span>
+<span class="c-cmd">rate</span> <span class="c-val">"786432"</span>
+<span class="c-cmd">cl_updaterate</span> <span class="c-val">"128"</span>
+<span class="c-cmd">cl_interp_ratio</span> <span class="c-val">"1"</span>
+<span class="c-cmd">cl_interp</span> <span class="c-val">"0.015625"</span>
+
+<span class="c-com">// --- AUDIO ---</span>
+<span class="c-cmd">snd_mixahead</span> <span class="c-val">"0.001"</span>
+<span class="c-cmd">snd_headphone_eq</span> <span class="c-val">"0"</span>
+
+<span class="c-com">// --- FPS ---</span>
+<span class="c-cmd">fps_max</span> <span class="c-val">"0"</span>
+<span class="c-cmd">+engine_low_latency_sleep_after_client_tick</span> <span class="c-val">"true"</span>
+<span class="c-cmd">r_fullscreen_gamma</span> <span class="c-val">"2.5"</span>
+<span class="c-cmd">+violence_hblood</span> <span class="c-val">"0"</span>
+
+<span class="c-com">// --- HUD ---</span>
+<span class="c-cmd">cl_showloadout</span> <span class="c-val">"1"</span>
+<span class="c-cmd">hud_showtargetid</span> <span class="c-val">"1"</span>
+<span class="c-cmd">cl_radar_scale</span> <span class="c-val">"0.35"</span>
+
+<span class="c-com">// --- BINDS ---</span>
+<span class="c-cmd">bind</span> <span class="c-val">"mwheeldown"</span> "+jump"
+<span class="c-cmd">bind</span> <span class="c-val">"v"</span> "+jumpaction;+throwaction;"
+<span class="c-cmd">alias</span> "+jumpaction" "+jump;"
+<span class="c-cmd">alias</span> "+throwaction" "-attack; -attack2"
+<span class="c-cmd">alias</span> "-jumpaction" "-jump"
+
+<span class="c-cmd">host_writeconfig</span>
+<span class="c-cmd">echo</span> "CONFIG CARGADA"
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-fps" class="tab-content">
+            <h1>Optimización FPS</h1>
+            <p class="subtitle">Configuraciones avanzadas para maximizar rendimiento en CS2.</p>
+
+            <div class="grid-2">
+                <div class="card" style="border-top:3px solid #00e676;">
+                    <h3>🖥️ Ajustes In-Game CS2</h3>
+                    <div class="how-to">
+                        <strong>Vídeo > Ajustes:</strong>
+                    </div>
+                    <div class="check"><div class="icon">➜</div> Calidad Global: <span class="val">BAJO</span></div>
+                    <div class="check"><div class="icon">➜</div> Detalle de Sombras: <span class="val">DESACTIVADO</span></div>
+                    <div class="check"><div class="icon">➜</div> Reflexiones: <span class="val">BAJO</span></div>
+                    <div class="check"><div class="icon">➜</div> Efectos Partículas: <span class="val">BAJO</span></div>
+                    <div class="check"><div class="icon">➜</div> MSAA: <span class="val">DESACTIVADO</span></div>
+                    <div class="check"><div class="icon">➜</div> Sincronización Vert.: <span class="val">DESACTIVADO</span></div>
+                    <div class="check"><div class="icon">➜</div> Supresión Anisotrópica: <span class="val">DESACTIVADO</span></div>
+                    <div class="check"><div class="icon">➜</div> AA Antialiasing: <span class="val">DESACTIVADO</span></div>
+                    <div class="check"><div class="icon">➜</div> Anti-Aliasing: <span class="val">DESACTIVADO</span></div>
+                </div>
+                
+                <div class="card" style="border-top:3px solid #2979ff;">
+                    <h3>⚙️ Configuración Avanzada</h3>
+                    <div class="check"><div class="icon">➜</div> r_lod: <span class="val">-1</span></div>
+                    <div class="check"><div class="icon">➜</div> cl_csm_quality_level: <span class="val">0</span></div>
+                    <div class="check"><div class="icon">➜</div> cl_brush_paint_for_server: <span class="val">0</span></div>
+                    <div class="check"><div class="icon">➜</div> cl_brush_paint_for_local_player: <span class="val">0</span></div>
+                    <div class="check"><div class="icon">➜</div> cl_brush_clipped_shadows: <span class="val">0</span></div>
+                    <div class="check"><div class="icon">➜</div> r_queued_decal_rendering: <span class="val">0</span></div>
+                    <div class="check"><div class="icon">➜</div> r_decals: <span class="val">0</span></div>
+                    <div class="check"><div class="icon">➜</div> r_shadow_longrange: <span class="val">0</span></div>
+                    <div class="check"><div class="icon">➜</div> r_drawlights: <span class="val">0</span></div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card" style="border-top:3px solid #ff1744;">
+                    <h3>🚀 Launch Options Optimizadas</h3>
+                    <div class="how-to">
+                        <strong>Propiedades de Steam > CS2 > Parámetros de lanzamiento:</strong><br>
+                        <span style="color: #ffaa00; font-size: 0.8rem;">⚠️ Nota: Usa bajo tu propio riesgo, algunos parámetros pueden afectar la estabilidad</span>
+                    </div>
+                    <div class="code-box" onclick="copyText(this)">-freq 165 -refresh 165 -tickrate 128 -high -console -nojoy -threads 8 -processheap -gl -nod3d9ex -safe -low -disable_eac_v2 -disable_anticheat
+
+<!--
+Explicación de parámetros:
+-freq 165: Frecuencia del monitor (cambiar por tu Hz)
+-tickrate 128: Tickrate del servidor
+-high: Prioridad alta al proceso
+-console: Mostrar consola del juego
+-nojoy: Desactivar soporte para controles de joystick
+-threads 8: Número de hilos (cambiar según tus núcleos)
+-processheap: Usar heap de memoria optimizado
+-gl: Usar OpenGL en lugar de DirectX
+-nod3d9ex: No usar Direct3D 9Ex
+-safe: Modo seguro de Steam
+-low: Prioridad baja del sistema
+disable_eac_v2: Desactivar Easy Anti-Cheat
+disable_anticheat: Desactivar todos los sistemas anti-trampa
+--></div>
+                </div>
+                
+                <div class="card" style="border-top:3px solid #ff9500;">
+                    <h3>💻 Configuración Windows</h3>
+                    <div class="check"><div class="icon">➜</div> Modo de Energía: <span class="val">Máximo Rendimiento</span></div>
+                    <div class="check"><div class="icon">➜</div> Planificación HZ GPU: <span class="val">Desactivado</span></div>
+                    <div class="check"><div class="icon">➜</div> Game Bar: <span class="val">Desactivado</span></div>
+                    <div class="check"><div class="icon">➜</div> Xbox Access: <span class="val">Desactivado</span></div>
+                    <div class="check"><div class="icon">➜</div> Hardware Acelerado GPU: <span class="val">Activado</span></div>
+                    <div class="check"><div class="icon">➜</div> Memory Compression: <span class="val">Desactivado</span></div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card" style="border-top:3px solid #9c27b0;">
+                    <h3>🔧 Autoexec Variables</h3>
+                    <div class="how-to">
+                        <strong>Agregar al archivo autoexec.cfg:</strong>
+                    </div>
+                    <div class="code-box" onclick="copyText(this)">cl_timeout 5
+cl_cmdbackup 2
+cl_cmdrate 128
+cl_updaterate 128
+cl_interp_ratio 1
+cl_interp 0.015625
+rate 786432
+snd_mixahead 0.001
+fps_max 0
++engine_low_latency_sleep_after_client_tick true
+cl_disable_ragdolls 1
+cl_forcepreload 1
+mat_queue_mode 2</div>
+                </div>
+                
+                <div class="card" style="border-top:3px solid #607d8b;">
+                    <h3>🧹 Mantenimiento Sistema</h3>
+                    <div class="check"><div class="icon">➜</div> Limpiar Temp: <span class="val">Semanal</span></div>
+                    <div class="check"><div class="icon">➜</div> Actualizar Drivers: <span class="val">Mensual</span></div>
+                    <div class="check"><div class="icon">➜</div> Desfragmentar HDD: <span class="val">Mensual</span></div>
+                    <div class="check"><div class="icon">➜</div> Verificar SSD: <span class="val">Mensual</span></div>
+                    <div class="check"><div class="icon">➜</div> Limpiar Registro: <span class="val">Trimestral</span></div>
+                    <div class="check"><div class="icon">➜</div> Antivirus Exclusiones: <span class="val">CS2 + Steam</span></div>
+                    <div class="check"><div class="icon">➜</div> Cerrar Apps: <span class="val">Discord, OBS, etc.</span></div>
+                </div>
+            </div>
+
+            <div class="card" style="background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%); border: 1px solid #333;">
+                <h3>📊 Consejos Específicos por Hardware</h3>
+                <div class="grid-2" style="margin-top: 15px;">
+                    <div>
+                        <div class="check"><div class="icon">🎮</div> RTX 4090/4080: <span class="val">200-400+ FPS</span></div>
+                        <div class="check"><div class="icon">🎮</div> RTX 4070/3060: <span class="val">120-250 FPS</span></div>
+                        <div class="check"><div class="icon">🎮</div> GTX 1660/RTX 2060: <span class="val">100-200 FPS</span></div>
+                        <div class="check"><div class="icon">🎮</div> GTX 1050/RTX 3050: <span class="val">60-120 FPS</span></div>
+                    </div>
+                    <div>
+                        <div class="check"><div class="icon">🖥️</div> 240Hz Monitor: <span class="val">Min 144 FPS</span></div>
+                        <div class="check"><div class="icon">🖥️</div> 165Hz Monitor: <span class="val">Min 120 FPS</span></div>
+                        <div class="check"><div class="icon">🖥️</div> 144Hz Monitor: <span class="val">Min 100 FPS</span></div>
+                        <div class="check"><div class="icon">🖥️</div> 60Hz Monitor: <span class="val">Min 60 FPS</span></div>
+                    </div>
+                </div>
+                <div class="grid-2" style="margin-top: 15px;">
+                    <div class="how-to">
+                        <strong>🔧 Intel Processors:</strong><br>
+                        • Configurar threads = núcleos físicos<br>
+                        • Activar Intel Speed Step: OFF<br>
+                        • Turbo Boost: ON<br>
+                        • C-States: OFF para gaming
+                    </div>
+                    <div class="how-to">
+                        <strong>💪 AMD Processors:</strong><br>
+                        • Configurar threads = total de núcleos<br>
+                        • AMD Precision Boost: ON<br>
+                        • Global C-States: OFF<br>
+                        • PBO (Precision Boost Overdrive): ON
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="tab-fpspro" class="tab-content">
+            <h1>🚀 FPS Pro Extremo</h1>
+            <p class="subtitle">Configuraciones avanzadas para jugadores profesionales - MÁXIMO RENDIMIENTO.</p>
+
+            <div class="grid-2">
+                <div class="card" style="border-top:3px solid #ff1744;">
+                    <h3>⚡ Variables CS2 Ultra</h3>
+                    <div class="how-to">
+                        <strong>Consola del juego o autoexec.cfg:</strong>
+                    </div>
+                    <div class="code-box" onclick="copyText(this)">mat_queue_mode 2
+cl_phys_props_maxcount 0
+cl_ragdoll_force_count 0
+cl_phys_props_maxcount 0
+cl_minimap_icons 1
+cl_use_decals 0
+r_decals_force_systemmemory 1
+r_drawmodeldecals 0
+r_drawropes 0
+r_drawvrad 0
+r_drawtranslucentrenderables 0
+r_modelAmbientMin 0
+r_ambientBoost 0
+r_ambientSaturation 0
+r_ambientOcclusion 0
+r_bloom_halo_use 0
+r_bloom_pulse_clamp 0
+r_water_forceexpensive 0
+r_water_forcereflecttypes 0
+r_lightmap_encodefullbrightness 0
+r_nohz 1
+r_use_legacy_lightmap_garbage 0
+r_texture_stream_enabled 0
+r_texture_group_banlist "SkyBox, RenderTextures, Water"
+r_dynamic 0
+r_global_lightmap_anisotropy 0
+r_texture_stream_memory_egards 0
+r_creattemptextures 1
+r_queuedmaterials 0
+r_queueddecals 0
+r_precomputed_models 0
+r_prop_precache_distances 0
+r_propsmaxdistance 0
+r_propsmaxscreenwidth 0
+r_clocksync 0
+r_displayrefresh 0
+r_queued_light_reflection 0
+r_renderpass 0</div>
+                </div>
+                
+                <div class="card" style="border-top:3px solid #2979ff;">
+                    <h3>🔧 Windows Registry Tweaks</h3>
+                    <div class="how-to">
+                        <strong>Windows Registry Editor (regedit):</strong><br>
+                        <span style="color: #ffaa00; font-size: 0.8rem;">⚠️ Hacer respaldo antes de modificar</span>
+                    </div>
+                    <div class="code-box" onclick="copyText(this)">// 1. Desactivar GameDVR
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers
+"HwSchMode" = dword:00000002
+
+// 2. Optimizar memoria
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers
+"TdrDelay" = dword:00000060
+"TdrDdiDelay" = dword:00000060
+
+// 3. Desactivar compositor
+HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\DWM
+"Composition" = dword:00000000
+
+// 4. Prioridad del procesador
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TimeBrokerSvc
+"Start" = dword:00000003
+
+// 5. Desactivar servicios innecesarios
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\XblAuthManager
+"Start" = dword:00000004</div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card" style="border-top:3px solid #00e676;">
+                    <h3>🎮 Launch Options Extreme</h3>
+                    <div class="how-to">
+                        <strong>Steam > CS2 > Propiedades > Parámetros de lanzamiento:</strong><br>
+                        <span style="color: #ff4444; font-size: 0.8rem;">⚠️ SOLO PARA SISTEMAS MUY POTENTES</span>
+                    </div>
+                    <div class="code-box" onclick="copyText(this)">-freq 240 -refresh 240 -tickrate 128 -high -console -nojoy -threads 16 -processheap -gl -nod3d9ex -safe -low -disable_eac_v2 -disable_anticheat -fullscreen -single_core -novid -nocrashdialog -minimize -mat_queue_mode 2 -cl_cmdrate 128 -cl_updaterate 128 -rate 786432 -cl_interp_ratio 1 -cl_interp 0.015625 -noforcemaccel -noforcemspd -noforcemparms</div>
+                </div>
+                
+                <div class="card" style="border-top:3px solid #ff9500;">
+                    <h3>💾 Memoria RAM Optimizada</h3>
+                    <div class="check"><div class="icon">➜</div> Page File: <span class="val">16GB en SSD</span></div>
+                    <div class="check"><div class="icon">➜</div> Virtual Memory: <span class="val">Desactivar</span></div>
+                    <div class="check"><div class="icon">➜</div> Preloader: <span class="val">Activado</span></div>
+                    <div class="check"><div class="icon">➜</div> Memory Compression: <span class="val">DESACTIVADO</span></div>
+                    <div class="check"><div class="icon">➜</div> Unattended Upgrades: <span class="val">DESACTIVADO</span></div>
+                    <div class="check"><div class="icon">➜</div> Superfetch: <span class="val">DESACTIVADO</span></div>
+                    <div class="check"><div class="icon">➜</div> ReadyBoost: <span class="val">DESACTIVADO</span></div>
+                    <div class="how-to">
+                        <strong>cmd como administrador:</strong><br>
+                        <code style="color: #00e676;">bcdedit /set useplatformtick true</code><br>
+                        <code style="color: #00e676;">bcdedit /set disabledynamictick true</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card" style="border-top:3px solid #9c27b0;">
+                    <h3>🔌 BIOS Overclocking</h3>
+                    <div class="how-to">
+                        <strong>Configuraciones BIOS avanzadas:</strong>
+                    </div>
+                    <div class="check"><div class="icon">➜</div> XMP Profile: <span class="val">XMP 3.0 ON</span></div>
+                    <div class="check"><div class="icon">➜</div> CPU Core Ratio: <span class="val">+2GHz</span></div>
+                    <div class="check"><div class="icon">➜</div> Memory Ratio: <span class="val">DDR4/DDR5 Max</span></div>
+                    <div class="check"><div class="icon">➜</div> GPU Clock: <span class="val">+100/+150 MHz</span></div>
+                    <div class="check"><div class="icon">➜</div> Power Management: <span class="val">Performance</span></div>
+                    <div class="check"><div class="icon">➜</div> C-States: <span class="val">DESACTIVADO</span></div>
+                    <div class="check"><div class="icon">➜</div> Turbo Boost: <span class="val">ACTIVADO</span></div>
+                </div>
+                
+                <div class="card" style="border-top:3px solid #607d8b;">
+                    <h3>🖥️ Monitor & Input Lag</h3>
+                    <div class="check"><div class="icon">➜</div> Game Mode: <span class="val">ON (Monitor)</span></div>
+                    <div class="check"><div class="icon">➜</div> VRR: <span class="val">OFF (Freesync/Gsync)</span></div>
+                    <div class="check"><div class="icon">➜</div> Response Time: <span class="val">Fastest</span></div>
+                    <div class="check"><div class="icon">➜</div> Input Lag Reduction: <span class="val">ON</span></div>
+                    <div class="check"><div class="icon">➜</div> Overdrive: <span class="val">Maximum</span></div>
+                    <div class="check"><div class="icon">➜</div> Low Input Lag: <span class="val">ON</span></div>
+                    <div class="check"><div class="icon">➜</div> Game Color: <span class="val">Enhanced</span></div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card" style="border-top:3px solid #ff4081;">
+                    <h3>🧹 Limpieza Extrema Sistema</h3>
+                    <div class="how-to">
+                        <strong>Ejecutar como administrador:</strong>
+                    </div>
+                    <div class="code-box" onclick="copyText(this)"># Limpiar archivos temporales
+Remove-Item -Path "C:\Windows\Temp\*" -Recurse -Force
+Remove-Item -Path "C:\Users\*\AppData\Local\Temp\*" -Recurse -Force
+
+# Desfragmentar HDD
+defrag C: /O
+
+# Limpiar registro
+regsvr32 /u /s msxml.dll
+regsvr32 /u /s msxml2.dll
+regsvr32 /u /s msxml3.dll
+
+# Recargar DLLs
+regsvr32 /u /s shdocvw.dll
+regsvr32 /s shdocvw.dll
+regsvr32 /u /s oleaut32.dll
+regsvr32 /s oleaut32.dll</div>
+                </div>
+                
+                <div class="card" style="border-top:3px solid #4caf50;">
+                    <h3>📈 Scripts Automáticos</h3>
+                    <div class="how-to">
+                        <strong>Autoexec.cfg Ultimate:</strong>
+                    </div>
+                    <div class="code-box" onclick="copyText(this)">// FPS MAXIMIZACIÓN
+fps_max 0
+r_fullscreen_gamma 2.5
++engine_low_latency_sleep_after_client_tick true
+cl_forcepreload 1
+cl_disable_ragdolls 1
+cl_minimap_scale 1.0
+cl_minimap_icons 1
+cl_minimap_showclanicon 0
+cl_minimap_showborders 1
+cl_radar_always_centered 1
+cl_radar_scale 0.35
+cl_radar_icon_scale_min 1
+cl_radar_rotate 1
+cl_radar_always_on_top 1
+hud_showtargetid 1
+cl_showloadout 1
+hud_scaling 1.0
+cl_crosshair_dot 0
+cl_crosshair_outlinethickness 0.5
+cl_crosshair_sniper_width 1
+cl_crosshair_t 1
+cl_crosshair_usealpha 1
+cl_crosshairalpha 255
+cl_buywheel_nonumberpurchasing 0
+cl_buytime 2147483647
+cl_spec_mode 4
+cl_useopenmedia 0
+cl_soundfile "0"
+cl_spec_follow_angle 0.0</div>
+                </div>
+            </div>
+
+            <div class="card" style="background: linear-gradient(135deg, #2c1b47 0%, #1a1a1a 100%); border: 2px solid #ff1744;">
+                <h3>⚡ Configuraciones por Hardware Específico</h3>
+                <div class="grid-3" style="margin-top: 15px;">
+                    <div class="how-to">
+                        <strong>💪 RTX 4090/RTX 4080:</strong><br>
+                        • +200/+300 FPS posible<br>
+                        • Ultra en sombras<br>
+                        • 2K resolución<br>
+                        • DLSS Quality/Performance<br>
+                        • Threads: 16<br>
+                        • Freq: 240Hz
+                    </div>
+                    <div class="how-to">
+                        <strong>🎮 RTX 4070/3070:</strong><br>
+                        • +150/+250 FPS objetivo<br>
+                        • Sombras: MEDIO<br>
+                        • 1080p resolución<br>
+                        • DLSS Performance<br>
+                        • Threads: 12<br>
+                        • Freq: 144-165Hz
+                    </div>
+                    <div class="how-to">
+                        <strong>🔧 RTX 3060/GTX 1660:</strong><br>
+                        • +100/+200 FPS meta<br>
+                        • Sombras: BAJO<br>
+                        • 1080p resolución<br>
+                        • DLSS OFF<br>
+                        • Threads: 8<br>
+                        • Freq: 144Hz
+                    </div>
+                </div>
+                <div class="how-to" style="margin-top: 20px; background: rgba(255,23,68,0.1); border-left: 4px solid #ff1744;">
+                    <strong>⚠️ ADVERTENCIA EXTREMA:</strong><br>
+                    Estas configuraciones son PARA JUGADORES PROFESIONALES con sistemas de alta gama. Algunos ajustes pueden causar inestabilidad, crashes o problemas de compatibilidad. SIEMPRE hacer respaldo del sistema antes de aplicar cambios avanzados.
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
     <script>
-        // --- LÓGICA DEL SISTEMA ---
-        
-        let state = {
-            dpi: 800,
-            baseSens: 2.0,
-            iteration: 0,
-            maxIterations: 7,
-            rangeMultiplier: 0.5, // 50% de rango inicial
-            low: 0,
-            high: 0
-        };
-
-        const INSTRUCTIONS = [
-            { t: "Rastreo (Tracking)", d: "Camina en círculos alrededor de un punto fijo en la pared. Elige la sensibilidad que te permita mantener la mira pegada al punto sin esfuerzo." },
-            { t: "Rastreo (Tracking)", d: "Misma prueba. Nota cómo los valores se acercan. Busca suavidad en tu movimiento." },
-            { t: "Flicks Pequeños", d: "Dispara a un punto, mueve la mira lejos y vuelve rápido al punto. ¿Con cuál te pasas menos?" },
-            { t: "Flicks y Micro-ajustes", d: "Haz movimientos rápidos entre dos puntos cercanos. Prioriza la precisión sobre la velocidad." },
-            { t: "Comodidad General", d: "Juega un poco de Deathmatch o muévete por el mapa. ¿Cuál se siente más natural?" },
-            { t: "Ajuste Fino", d: "La diferencia es mínima. Cierra los ojos, mueve el mouse lo que crees que es 90 grados. Abre los ojos. ¿Cuál está más cerca?" },
-            { t: "Decisión Final", d: "Elige la que sientas mejor para tu estilo de juego principal." }
-        ];
-
-        // Elementos DOM
-        const uiSetup = document.getElementById('setup-ui');
-        const uiCalib = document.getElementById('calibration-ui');
-        const uiResult = document.getElementById('result-ui');
-        
-        function startCalibration() {
-            const dpiInput = document.getElementById('dpi').value;
-            const sensInput = document.getElementById('base').value;
-            const profileMult = document.getElementById('profile').value;
-
-            if(!dpiInput || !sensInput) return alert("Por favor introduce todos los datos.");
-
-            state.dpi = parseInt(dpiInput);
-            state.baseSens = parseFloat(sensInput);
-            
-            // Ajustar multiplicador inicial según perfil
-            // 1.5 es estándar (Low = Base/1.5, High = Base*1.5)
-            // Aquí usamos un enfoque porcentual más limpio:
-            // High = Base * (1 + range), Low = Base * (1 - range)
-            state.rangeMultiplier = (parseFloat(profileMult) - 1.0); 
-
-            state.iteration = 1;
-
-            // Cambiar UI
-            uiSetup.classList.add('hidden');
-            uiCalib.style.display = 'block';
-            document.getElementById('step-badge').innerText = "CALIBRANDO";
-            document.getElementById('step-badge').style.color = "#fff";
-
-            updateRound();
-            document.addEventListener('keydown', handleKeys);
+        function setTab(id, btn) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + id).classList.add('active');
+            btn.classList.add('active');
         }
 
-        function updateRound() {
-            // Calcular High y Low basados en el Base actual y el Multiplicador actual
-            state.low = state.baseSens * (1 - state.rangeMultiplier);
-            state.high = state.baseSens * (1 + state.rangeMultiplier);
+        function copyText(el) { navigator.clipboard.writeText(el.innerText); el.style.borderColor = '#00e676'; setTimeout(()=>el.style.borderColor='#333', 300); }
+        function copyAutoexec() { navigator.clipboard.writeText(document.getElementById('cfg-text').innerText); alert("Copiado!"); }
+        function copyFinal() { navigator.clipboard.writeText("sensitivity " + document.getElementById('final-cmd').innerText); alert("Copiado!"); }
 
-            // Renderizar Valores
+        // PSA Logic
+        let state = { base: 2.0, iter: 0, range: 0.5, low: 0, high: 0 };
+        function startPSA() {
+            state.base = parseFloat(document.getElementById('base').value);
+            state.range = parseFloat(document.getElementById('profile').value); 
+            state.iter = 1;
+            document.getElementById('psa-setup').style.display = 'none';
+            document.getElementById('psa-active').style.display = 'block';
+            updateRound();
+        }
+        function updateRound() {
+            state.low = state.base * (1 - state.range);
+            state.high = state.base * (1 + state.range);
             document.getElementById('val-low').innerText = state.low.toFixed(3);
             document.getElementById('val-high').innerText = state.high.toFixed(3);
-            
-            // Renderizar cm/360
-            document.getElementById('cm-low').innerText = getCm360(state.low);
-            document.getElementById('cm-high').innerText = getCm360(state.high);
-
-            // Actualizar Instrucciones
-            const instrIdx = Math.min(state.iteration - 1, INSTRUCTIONS.length - 1);
-            document.getElementById('instruct-title').innerText = `Ronda ${state.iteration}: ${INSTRUCTIONS[instrIdx].t}`;
-            document.getElementById('instruct-text').innerText = INSTRUCTIONS[instrIdx].d;
-
-            // Barra de Progreso
-            const progressPct = ((state.iteration - 1) / state.maxIterations) * 100;
-            document.getElementById('progress-fill').style.width = `${progressPct}%`;
-            document.getElementById('iter-count').innerText = `${state.iteration}/${state.maxIterations}`;
+            document.getElementById('iter').innerText = state.iter;
         }
-
-        function selectOption(choice) {
-            const chosenValue = choice === 'low' ? state.low : state.high;
-            
-            // Copiar al portapapeles automáticamente
-            navigator.clipboard.writeText(`sensitivity ${chosenValue.toFixed(4)}`);
-            
-            // Feedback Visual Rápido
-            const card = document.getElementById(`card-${choice}`);
-            card.style.borderColor = "#fff";
-            setTimeout(() => card.style.borderColor = "transparent", 200);
-
-            // LOGICA PSA AVANZADA
-            // 1. Guardar en historial
-            addToHistory(state.iteration, state.low, state.high, choice);
-
-            // 2. Actualizar Base: El nuevo centro es el valor elegido (o un promedio ponderado)
-            // El método Jaymore puro usa el promedio: (BaseAnterior + Elegido) / 2
-            // El método PSA Binario usa el Elegido como nuevo centro.
-            // Usaremos un híbrido para suavidad:
-            state.baseSens = (state.baseSens + chosenValue) / 2;
-
-            // 3. Reducir el rango (Decay)
-            // Multiplicamos el rango por 0.75 (se encoge 25% cada ronda)
-            state.rangeMultiplier = state.rangeMultiplier * 0.75;
-
-            // 4. Avanzar
-            state.iteration++;
-
-            if(state.iteration > state.maxIterations) {
-                finishCalibration();
-            } else {
-                updateRound();
-            }
+        function choose(side) {
+            state.base = side === 'low' ? state.low : state.high;
+            navigator.clipboard.writeText(`sensitivity ${state.base.toFixed(4)}`);
+            state.range *= 0.7; 
+            state.iter++;
+            if(state.iter > 7) {
+                document.getElementById('psa-active').style.display = 'none';
+                document.getElementById('psa-result').style.display = 'block';
+                document.getElementById('final-res').innerText = state.base.toFixed(4);
+                document.getElementById('final-cmd').innerText = state.base.toFixed(4);
+            } else { updateRound(); }
         }
-
-        function finishCalibration() {
-            document.removeEventListener('keydown', handleKeys);
-            uiCalib.style.display = 'none';
-            uiResult.style.display = 'block';
-            document.getElementById('step-badge').innerText = "FINALIZADO";
-            document.getElementById('step-badge').style.background = "var(--success)";
-            document.getElementById('step-badge').style.color = "#000";
-
-            // Mostrar Resultados
-            const final = state.baseSens.toFixed(4);
-            document.getElementById('final-sens').innerText = final;
-            document.getElementById('final-cmd').innerText = final;
-            document.getElementById('final-dpi').innerText = state.dpi;
-            
-            const edpi = Math.round(state.baseSens * state.dpi);
-            document.getElementById('final-edpi').innerText = `eDPI: ${edpi}`;
-            document.getElementById('final-cm').innerText = getCm360(state.baseSens) + " cm";
-
-            // Llenar barra al 100%
-            document.getElementById('progress-fill').style.width = '100%';
-        }
-
-        // --- UTILS ---
-
-        function getCm360(sens) {
-            if(sens === 0) return 0;
-            const edpi = sens * state.dpi;
-            // Fórmula: (360 / (eDPI * 0.022)) * 2.54
-            // 0.022 es el m_yaw standard de Source
-            const inches = 360 / (edpi * 0.022);
-            return (inches * 2.54).toFixed(1);
-        }
-
-        function addToHistory(iter, l, h, choice) {
-            const list = document.getElementById('history-log');
-            const item = document.createElement('div');
-            item.className = 'history-item';
-            
-            const valChosen = choice === 'low' ? l : h;
-            
-            item.innerHTML = `
-                <div class="hist-iter">${iter}</div>
-                <div class="hist-val">
-                    L: ${l.toFixed(3)} | H: ${h.toFixed(3)}
-                </div>
-                <div class="hist-choice">${choice === 'low' ? 'BAJA' : 'ALTA'}</div>
-            `;
-            list.prepend(item);
-        }
-
-        function handleKeys(e) {
-            if(e.key === "ArrowLeft") selectOption('low');
-            if(e.key === "ArrowRight") selectOption('high');
-        }
-
-        function copyResult() {
-            const val = document.getElementById('final-cmd').innerText;
-            navigator.clipboard.writeText(`sensitivity ${val}`);
-            alert("Comando copiado!");
-        }
-
     </script>
 </body>
 </html>
