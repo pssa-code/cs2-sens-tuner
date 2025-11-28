@@ -4,13 +4,15 @@
 
 ![Version](https://img.shields.io/badge/version-v17.0-00e676?style=for-the-badge)
 ![Game](https://img.shields.io/badge/game-CS2-ff1744?style=for-the-badge)
-![Platform](https://img.shields.io/badge/platform-Web-2979ff?style=for-the-badge)
+[![Platform](https://img.shields.io/badge/platform-Web-2979ff?style=for-the-badge)](https://pssa-code.github.io/cs2-sens-tuner/)
 
 ## 📋 Descripción
 
 **CS2 HUB: AIM GOD** es una aplicación web local (single-file) diseñada para jugadores que buscan exprimir cada frame y milisegundo de rendimiento. Esta herramienta centraliza scripts de optimización, bases de datos de configuraciones profesionales y herramientas matemáticas para la puntería.
 
 La **Versión 17** introduce un algoritmo PSA rediseñado para alcanzar la máxima precisión técnica permitida por el motor Source 2.
+
+🔗 **Acceder a la herramienta web:** [pssa-code.github.io/cs2-sens-tuner](https://pssa-code.github.io/cs2-sens-tuner/)
 
 ---
 
