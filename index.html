@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS2 HUB: AIM GOD v16 - FPS Pro Extremo</title>
+    <title>CS2 HUB: AIM GOD v17 - Precision Update</title>
     <style>
         :root {
             --bg: #0f0f0f;
@@ -178,46 +178,48 @@
 
         <div id="tab-calib" class="tab-content active">
             <h1>Calibrador PSA</h1>
-            <p class="subtitle">Algoritmo matemático para encontrar tu sensibilidad perfecta.</p>
+            <p class="subtitle">Algoritmo matemático de Alta Precisión para encontrar tu sensibilidad perfecta.</p>
 
             <div class="card">
                 <h3>📝 Instrucciones</h3>
                 <div class="how-to">
                     1. Introduce tus DPI y Sensibilidad actual.<br>
-                    2. Selecciona "Iniciar". Entra al juego.<br>
-                    3. Prueba la sensibilidad "A" y "B" haciendo tracking (seguir un punto en la pared).<br>
-                    4. Elige la que se sienta más natural. Repite 7 veces.
+                    2. Selecciona tu <strong>ESTILO DE JUEGO</strong> para ajustar el algoritmo.<br>
+                    3. Prueba la sensibilidad "A" y "B" haciendo tracking.<br>
+                    4. Elige la que se sienta más natural. Repite 6 veces.
                 </div>
             </div>
             
             <div id="psa-setup" style="max-width:400px;">
                 <input type="number" id="dpi" value="800" class="calib-input" placeholder="DPI">
-                <input type="number" id="base" value="1.5" step="0.01" class="calib-input" placeholder="Sensibilidad">
+                <input type="number" id="base" value="1.5" step="0.01" class="calib-input" placeholder="Sensibilidad Actual">
                 <select id="profile" class="calib-input">
-                    <option value="0.5">Estándar (Recomendado)</option>
-                    <option value="0.6">Entry (Rápido)</option>
-                    <option value="0.4">Precisión (Lento)</option>
+                    <option value="0.5">Híbrido / Estándar (Recomendado)</option>
+                    <option value="0.35">AWP / Sniper (Precisión Máxima)</option>
+                    <option value="0.45">Rifler / Support (Controlado)</option>
+                    <option value="0.6">Entry Fragger (Agresivo/Rápido)</option>
+                    <option value="0.65">Wrist Aim (Solo Muñeca)</option>
                 </select>
                 <button class="big-btn" onclick="startPSA()">INICIAR CALIBRACIÓN</button>
             </div>
 
             <div id="psa-active" style="display:none;">
-                <div style="text-align:center; margin-bottom:20px;">RONDA <span id="iter">1</span> / 7</div>
+                <div style="text-align:center; margin-bottom:20px;">RONDA <span id="iter">1</span> / 6</div>
                 <div style="display:flex; gap:20px;">
                     <div onclick="choose('low')" style="flex:1; background:#111; padding:30px; text-align:center; border:1px solid #333; cursor:pointer;">
                         <div style="color:#888;">OPCIÓN A</div>
-                        <div style="font-size:2.5rem; color:#fff;" id="val-low">0.00</div>
+                        <div style="font-size:2rem; color:#fff;" id="val-low">0.000000</div>
                     </div>
                     <div onclick="choose('high')" style="flex:1; background:#111; padding:30px; text-align:center; border:1px solid #333; cursor:pointer;">
                         <div style="color:#888;">OPCIÓN B</div>
-                        <div style="font-size:2.5rem; color:#fff;" id="val-high">0.00</div>
+                        <div style="font-size:2rem; color:#fff;" id="val-high">0.000000</div>
                     </div>
                 </div>
             </div>
             
             <div id="psa-result" style="display:none; text-align:center;">
-                <h1 id="final-res" style="color:var(--primary)">0.00</h1>
-                <div class="code-box" onclick="copyFinal()">sensitivity <span id="final-cmd">0.00</span></div>
+                <h1 id="final-res" style="color:var(--primary)">0.000000</h1>
+                <div class="code-box" onclick="copyFinal()">sensitivity <span id="final-cmd">0.000000</span></div>
                 <button class="big-btn" style="margin-top:20px;" onclick="location.reload()">REINICIAR</button>
             </div>
         </div>
@@ -237,7 +239,6 @@
             </div>
 
             <div class="grid-3">
-                <!-- Jugadores legendarios actualizados a 2025 -->
                 <div class="xhair-card">
                     <div class="xhair-title">s1mple</div>
                     <div class="xhair-role">The GOAT (Rifler/AWP)</div>
@@ -274,7 +275,6 @@
                     <div class="xhair-code" onclick="copyText(this)">CSGO-MMQuh-Hs3Sj-Qv9zd-VaCmc-3QqNO</div>
                 </div>
 
-                <!-- Jugadores top 2025 (equipos y códigos actualizados) -->
                 <div class="xhair-card">
                     <div class="xhair-title">dev1ce</div>
                     <div class="xhair-role">Danish Machine (Astralis)</div>
@@ -776,22 +776,7 @@ Windows Registry Editor Version 5.00
                     </div>
                     <div class="code-box" onclick="copyText(this)">-freq 165 -refresh 165 -tickrate 128 -high -console -nojoy -threads 8 -processheap -gl -nod3d9ex -safe -low -disable_eac_v2 -disable_anticheat
 
-<!--
-Explicación de parámetros:
--freq 165: Frecuencia del monitor (cambiar por tu Hz)
--tickrate 128: Tickrate del servidor
--high: Prioridad alta al proceso
--console: Mostrar consola del juego
--nojoy: Desactivar soporte para controles de joystick
--threads 8: Número de hilos (cambiar según tus núcleos)
--processheap: Usar heap de memoria optimizado
--gl: Usar OpenGL en lugar de DirectX
--nod3d9ex: No usar Direct3D 9Ex
--safe: Modo seguro de Steam
--low: Prioridad baja del sistema
-disable_eac_v2: Desactivar Easy Anti-Cheat
-disable_anticheat: Desactivar todos los sistemas anti-trampa
---></div>
+</div>
                 </div>
                 
                 <div class="card" style="border-top:3px solid #ff9500;">
@@ -1136,20 +1121,21 @@ cl_spec_follow_angle 0.0</div>
         function updateRound() {
             state.low = state.base * (1 - state.range);
             state.high = state.base * (1 + state.range);
-            document.getElementById('val-low').innerText = state.low.toFixed(3);
-            document.getElementById('val-high').innerText = state.high.toFixed(3);
+            // 6 DECIMALES: Máxima precisión permitida por el motor
+            document.getElementById('val-low').innerText = state.low.toFixed(6);
+            document.getElementById('val-high').innerText = state.high.toFixed(6);
             document.getElementById('iter').innerText = state.iter;
         }
         function choose(side) {
             state.base = side === 'low' ? state.low : state.high;
-            navigator.clipboard.writeText(`sensitivity ${state.base.toFixed(4)}`);
-            state.range *= 0.7; 
+            navigator.clipboard.writeText(`sensitivity ${state.base.toFixed(6)}`);
+            state.range *= 0.7; // Factor de convergencia
             state.iter++;
-            if(state.iter > 7) {
+            if(state.iter > 6) {
                 document.getElementById('psa-active').style.display = 'none';
                 document.getElementById('psa-result').style.display = 'block';
-                document.getElementById('final-res').innerText = state.base.toFixed(4);
-                document.getElementById('final-cmd').innerText = state.base.toFixed(4);
+                document.getElementById('final-res').innerText = state.base.toFixed(6);
+                document.getElementById('final-cmd').innerText = state.base.toFixed(6);
             } else { updateRound(); }
         }
     </script>
