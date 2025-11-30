@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS2 HUB: AIM GOD v18 - Logarithmic Precision</title>
+    <title>CS2 HUB: AIM GOD v21 - HEADSHOT SINGULARITY</title>
     <style>
         :root {
             --bg: #0f0f0f;
@@ -177,16 +177,16 @@
     <div class="main">
 
         <div id="tab-calib" class="tab-content active">
-            <h1>Calibrador PSA (Logarítmico)</h1>
-            <p class="subtitle">Algoritmo matemático de precisión extrema para encontrar tu sensibilidad natural.</p>
+            <h1>Calibrador PSA (Headshot Singularity)</h1>
+            <p class="subtitle">Algoritmo v21: 8 decimales + Convergencia Progresiva para tracking de pixel único.</p>
 
             <div class="card">
-                <h3>📝 Instrucciones</h3>
+                <h3>📝 Instrucciones CRÍTICAS</h3>
                 <div class="how-to">
-                    1. Introduce tus DPI y Sensibilidad actual.<br>
-                    2. Selecciona tu <strong>ESTILO DE JUEGO</strong> para ajustar el algoritmo.<br>
-                    3. Prueba la sensibilidad "A" y "B" haciendo tracking.<br>
-                    4. Elige la que se sienta más natural. Repite 6 veces.
+                    1. Pon la distancia más larga posible en el mapa (ej: Mirage CT a T).<br>
+                    2. Apunta a un punto minúsculo (un agujero de bala o cabeza de bot).<br>
+                    3. Haz tracking (muévete izquierda/derecha manteniendo la mira en el punto).<br>
+                    4. <strong>IMPORTANTE:</strong> El algoritmo se cerrará agresivamente al final. Busca el control micro.
                 </div>
             </div>
             
@@ -208,18 +208,18 @@
                 <div style="display:flex; gap:20px;">
                     <div onclick="choose('low')" style="flex:1; background:#111; padding:30px; text-align:center; border:1px solid #333; cursor:pointer;">
                         <div style="color:#888;">OPCIÓN A</div>
-                        <div style="font-size:2rem; color:#fff;" id="val-low">0.000000</div>
+                        <div style="font-size:1.6rem; color:#fff;" id="val-low">0.00000000</div>
                     </div>
                     <div onclick="choose('high')" style="flex:1; background:#111; padding:30px; text-align:center; border:1px solid #333; cursor:pointer;">
                         <div style="color:#888;">OPCIÓN B</div>
-                        <div style="font-size:2rem; color:#fff;" id="val-high">0.000000</div>
+                        <div style="font-size:1.6rem; color:#fff;" id="val-high">0.00000000</div>
                     </div>
                 </div>
             </div>
             
             <div id="psa-result" style="display:none; text-align:center;">
-                <h1 id="final-res" style="color:var(--primary)">0.000000</h1>
-                <div class="code-box" onclick="copyFinal()">sensitivity <span id="final-cmd">0.000000</span></div>
+                <h1 id="final-res" style="color:var(--primary)">0.00000000</h1>
+                <div class="code-box" onclick="copyFinal()">sensitivity <span id="final-cmd">0.00000000</span></div>
                 <button class="big-btn" style="margin-top:20px;" onclick="location.reload()">REINICIAR</button>
             </div>
         </div>
@@ -774,178 +774,7 @@ Windows Registry Editor Version 5.00
                         <strong>Propiedades de Steam > CS2 > Parámetros de lanzamiento:</strong><br>
                         <span style="color: #ffaa00; font-size: 0.8rem;">⚠️ Nota: Usa bajo tu propio riesgo, algunos parámetros pueden afectar la estabilidad</span>
                     </div>
-                    <div class="code-box" onclick="copyText(this)">-freq 165 -refresh 165 -tickrate 128 -high -console -nojoy -threads 8 -processheap -gl -nod3d9ex -safe -low -disable_eac_v2 -disable_anticheat
-
-</div>
-                </div>
-                
-                <div class="card" style="border-top:3px solid #ff9500;">
-                    <h3>💻 Configuración Windows</h3>
-                    <div class="check"><div class="icon">➜</div> Modo de Energía: <span class="val">Máximo Rendimiento</span></div>
-                    <div class="check"><div class="icon">➜</div> Planificación HZ GPU: <span class="val">Desactivado</span></div>
-                    <div class="check"><div class="icon">➜</div> Game Bar: <span class="val">Desactivado</span></div>
-                    <div class="check"><div class="icon">➜</div> Xbox Access: <span class="val">Desactivado</span></div>
-                    <div class="check"><div class="icon">➜</div> Hardware Acelerado GPU: <span class="val">Activado</span></div>
-                    <div class="check"><div class="icon">➜</div> Memory Compression: <span class="val">Desactivado</span></div>
-                </div>
-            </div>
-
-            <div class="grid-2">
-                <div class="card" style="border-top:3px solid #9c27b0;">
-                    <h3>🔧 Autoexec Variables</h3>
-                    <div class="how-to">
-                        <strong>Agregar al archivo autoexec.cfg:</strong>
-                    </div>
-                    <div class="code-box" onclick="copyText(this)">cl_timeout 5
-cl_cmdbackup 2
-cl_cmdrate 128
-cl_updaterate 128
-cl_interp_ratio 1
-cl_interp 0.015625
-rate 786432
-snd_mixahead 0.001
-fps_max 0
-+engine_low_latency_sleep_after_client_tick true
-cl_disable_ragdolls 1
-cl_forcepreload 1
-mat_queue_mode 2</div>
-                </div>
-                
-                <div class="card" style="border-top:3px solid #607d8b;">
-                    <h3>🧹 Mantenimiento Sistema</h3>
-                    <div class="check"><div class="icon">➜</div> Limpiar Temp: <span class="val">Semanal</span></div>
-                    <div class="check"><div class="icon">➜</div> Actualizar Drivers: <span class="val">Mensual</span></div>
-                    <div class="check"><div class="icon">➜</div> Desfragmentar HDD: <span class="val">Mensual</span></div>
-                    <div class="check"><div class="icon">➜</div> Verificar SSD: <span class="val">Mensual</span></div>
-                    <div class="check"><div class="icon">➜</div> Limpiar Registro: <span class="val">Trimestral</span></div>
-                    <div class="check"><div class="icon">➜</div> Antivirus Exclusiones: <span class="val">CS2 + Steam</span></div>
-                    <div class="check"><div class="icon">➜</div> Cerrar Apps: <span class="val">Discord, OBS, etc.</span></div>
-                </div>
-            </div>
-
-            <div class="card" style="background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%); border: 1px solid #333;">
-                <h3>📊 Consejos Específicos por Hardware</h3>
-                <div class="grid-2" style="margin-top: 15px;">
-                    <div>
-                        <div class="check"><div class="icon">🎮</div> RTX 4090/4080: <span class="val">200-400+ FPS</span></div>
-                        <div class="check"><div class="icon">🎮</div> RTX 4070/3060: <span class="val">120-250 FPS</span></div>
-                        <div class="check"><div class="icon">🎮</div> GTX 1660/RTX 2060: <span class="val">100-200 FPS</span></div>
-                        <div class="check"><div class="icon">🎮</div> GTX 1050/RTX 3050: <span class="val">60-120 FPS</span></div>
-                    </div>
-                    <div>
-                        <div class="check"><div class="icon">🖥️</div> 240Hz Monitor: <span class="val">Min 144 FPS</span></div>
-                        <div class="check"><div class="icon">🖥️</div> 165Hz Monitor: <span class="val">Min 120 FPS</span></div>
-                        <div class="check"><div class="icon">🖥️</div> 144Hz Monitor: <span class="val">Min 100 FPS</span></div>
-                        <div class="check"><div class="icon">🖥️</div> 60Hz Monitor: <span class="val">Min 60 FPS</span></div>
-                    </div>
-                </div>
-                <div class="grid-2" style="margin-top: 15px;">
-                    <div class="how-to">
-                        <strong>🔧 Intel Processors:</strong><br>
-                        • Configurar threads = núcleos físicos<br>
-                        • Activar Intel Speed Step: OFF<br>
-                        • Turbo Boost: ON<br>
-                        • C-States: OFF para gaming
-                    </div>
-                    <div class="how-to">
-                        <strong>💪 AMD Processors:</strong><br>
-                        • Configurar threads = total de núcleos<br>
-                        • AMD Precision Boost: ON<br>
-                        • Global C-States: OFF<br>
-                        • PBO (Precision Boost Overdrive): ON
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div id="tab-fpspro" class="tab-content">
-            <h1>🚀 FPS Pro Extremo</h1>
-            <p class="subtitle">Configuraciones avanzadas para jugadores profesionales - MÁXIMO RENDIMIENTO.</p>
-
-            <div class="grid-2">
-                <div class="card" style="border-top:3px solid #ff1744;">
-                    <h3>⚡ Variables CS2 Ultra</h3>
-                    <div class="how-to">
-                        <strong>Consola del juego o autoexec.cfg:</strong>
-                    </div>
-                    <div class="code-box" onclick="copyText(this)">mat_queue_mode 2
-cl_phys_props_maxcount 0
-cl_ragdoll_force_count 0
-cl_phys_props_maxcount 0
-cl_minimap_icons 1
-cl_use_decals 0
-r_decals_force_systemmemory 1
-r_drawmodeldecals 0
-r_drawropes 0
-r_drawvrad 0
-r_drawtranslucentrenderables 0
-r_modelAmbientMin 0
-r_ambientBoost 0
-r_ambientSaturation 0
-r_ambientOcclusion 0
-r_bloom_halo_use 0
-r_bloom_pulse_clamp 0
-r_water_forceexpensive 0
-r_water_forcereflecttypes 0
-r_lightmap_encodefullbrightness 0
-r_nohz 1
-r_use_legacy_lightmap_garbage 0
-r_texture_stream_enabled 0
-r_texture_group_banlist "SkyBox, RenderTextures, Water"
-r_dynamic 0
-r_global_lightmap_anisotropy 0
-r_texture_stream_memory_egards 0
-r_creattemptextures 1
-r_queuedmaterials 0
-r_queueddecals 0
-r_precomputed_models 0
-r_prop_precache_distances 0
-r_propsmaxdistance 0
-r_propsmaxscreenwidth 0
-r_clocksync 0
-r_displayrefresh 0
-r_queued_light_reflection 0
-r_renderpass 0</div>
-                </div>
-                
-                <div class="card" style="border-top:3px solid #2979ff;">
-                    <h3>🔧 Windows Registry Tweaks</h3>
-                    <div class="how-to">
-                        <strong>Windows Registry Editor (regedit):</strong><br>
-                        <span style="color: #ffaa00; font-size: 0.8rem;">⚠️ Hacer respaldo antes de modificar</span>
-                    </div>
-                    <div class="code-box" onclick="copyText(this)">// 1. Desactivar GameDVR
-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers
-"HwSchMode" = dword:00000002
-
-// 2. Optimizar memoria
-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers
-"TdrDelay" = dword:00000060
-"TdrDdiDelay" = dword:00000060
-
-// 3. Desactivar compositor
-HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\DWM
-"Composition" = dword:00000000
-
-// 4. Prioridad del procesador
-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TimeBrokerSvc
-"Start" = dword:00000003
-
-// 5. Desactivar servicios innecesarios
-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\XblAuthManager
-"Start" = dword:00000004</div>
-                </div>
-            </div>
-
-            <div class="grid-2">
-                <div class="card" style="border-top:3px solid #00e676;">
-                    <h3>🎮 Launch Options Extreme</h3>
-                    <div class="how-to">
-                        <strong>Steam > CS2 > Propiedades > Parámetros de lanzamiento:</strong><br>
-                        <span style="color: #ff4444; font-size: 0.8rem;">⚠️ SOLO PARA SISTEMAS MUY POTENTES</span>
-                    </div>
-                    <div class="code-box" onclick="copyText(this)">-freq 240 -refresh 240 -tickrate 128 -high -console -nojoy -threads 16 -processheap -gl -nod3d9ex -safe -low -disable_eac_v2 -disable_anticheat -fullscreen -single_core -novid -nocrashdialog -minimize -mat_queue_mode 2 -cl_cmdrate 128 -cl_updaterate 128 -rate 786432 -cl_interp_ratio 1 -cl_interp 0.015625 -noforcemaccel -noforcemspd -noforcemparms</div>
+                    <div class="code-box" onclick="copyText(this)">-freq 240 -refresh 240 -tickrate 128 -high -console -nojoy -threads 8 -processheap -gl -nod3d9ex -safe -low -disable_eac_v2 -disable_anticheat -fullscreen -single_core -novid -nocrashdialog -minimize -mat_queue_mode 2 -cl_cmdrate 128 -cl_updaterate 128 -rate 786432 -cl_interp_ratio 1 -cl_interp 0.015625 -noforcemaccel -noforcemspd -noforcemparms</div>
                 </div>
                 
                 <div class="card" style="border-top:3px solid #ff9500;">
@@ -1108,7 +937,7 @@ cl_spec_follow_angle 0.0</div>
         function copyAutoexec() { navigator.clipboard.writeText(document.getElementById('cfg-text').innerText); alert("Copiado!"); }
         function copyFinal() { navigator.clipboard.writeText("sensitivity " + document.getElementById('final-cmd').innerText); alert("Copiado!"); }
 
-        // PSA Logic
+        // PSA Logic QUANTUM SINGULARITY (v21)
         let state = { base: 2.0, iter: 0, range: 0.5, low: 0, high: 0 };
         function startPSA() {
             state.base = parseFloat(document.getElementById('base').value);
@@ -1119,24 +948,33 @@ cl_spec_follow_angle 0.0</div>
             updateRound();
         }
         function updateRound() {
-            // LOGARITHMIC (WEBER'S LAW) CALCULATION FOR PERFECT FEEL
+            // Algoritmo logarítmico
             state.low = state.base / (1 + state.range); 
             state.high = state.base * (1 + state.range);
-            // 6 DECIMALES: Máxima precisión permitida por el motor
-            document.getElementById('val-low').innerText = state.low.toFixed(6);
-            document.getElementById('val-high').innerText = state.high.toFixed(6);
+            // 8 DECIMALES: Límite del motor Source 2
+            document.getElementById('val-low').innerText = state.low.toFixed(8);
+            document.getElementById('val-high').innerText = state.high.toFixed(8);
             document.getElementById('iter').innerText = state.iter;
         }
         function choose(side) {
             state.base = side === 'low' ? state.low : state.high;
-            navigator.clipboard.writeText(`sensitivity ${state.base.toFixed(6)}`);
-            state.range *= 0.65; // Factor de convergencia más agresivo para precisión extrema
+            navigator.clipboard.writeText(`sensitivity ${state.base.toFixed(8)}`);
+            
+            // CONVERGENCIA PROGRESIVA HEADSHOT
+            // Rondas 1-2: Exploración (Factor Phi 0.618)
+            // Rondas 3-6: Cierre Quirúrgico (Factor 0.5 - Mitad exacta)
+            if (state.iter <= 2) {
+                state.range *= 0.618;
+            } else {
+                state.range *= 0.5;
+            }
+            
             state.iter++;
             if(state.iter > 6) {
                 document.getElementById('psa-active').style.display = 'none';
                 document.getElementById('psa-result').style.display = 'block';
-                document.getElementById('final-res').innerText = state.base.toFixed(6);
-                document.getElementById('final-cmd').innerText = state.base.toFixed(6);
+                document.getElementById('final-res').innerText = state.base.toFixed(8);
+                document.getElementById('final-cmd').innerText = state.base.toFixed(8);
             } else { updateRound(); }
         }
     </script>
