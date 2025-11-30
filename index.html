@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS2 HUB: AIM GOD v17 - Precision Update</title>
+    <title>CS2 HUB: AIM GOD v18 - Logarithmic Precision</title>
     <style>
         :root {
             --bg: #0f0f0f;
@@ -177,8 +177,8 @@
     <div class="main">
 
         <div id="tab-calib" class="tab-content active">
-            <h1>Calibrador PSA</h1>
-            <p class="subtitle">Algoritmo matemático de Alta Precisión para encontrar tu sensibilidad perfecta.</p>
+            <h1>Calibrador PSA (Logarítmico)</h1>
+            <p class="subtitle">Algoritmo matemático de precisión extrema para encontrar tu sensibilidad natural.</p>
 
             <div class="card">
                 <h3>📝 Instrucciones</h3>
@@ -1119,7 +1119,8 @@ cl_spec_follow_angle 0.0</div>
             updateRound();
         }
         function updateRound() {
-            state.low = state.base * (1 - state.range);
+            // LOGARITHMIC (WEBER'S LAW) CALCULATION FOR PERFECT FEEL
+            state.low = state.base / (1 + state.range); 
             state.high = state.base * (1 + state.range);
             // 6 DECIMALES: Máxima precisión permitida por el motor
             document.getElementById('val-low').innerText = state.low.toFixed(6);
@@ -1129,7 +1130,7 @@ cl_spec_follow_angle 0.0</div>
         function choose(side) {
             state.base = side === 'low' ? state.low : state.high;
             navigator.clipboard.writeText(`sensitivity ${state.base.toFixed(6)}`);
-            state.range *= 0.7; // Factor de convergencia
+            state.range *= 0.65; // Factor de convergencia más agresivo para precisión extrema
             state.iter++;
             if(state.iter > 6) {
                 document.getElementById('psa-active').style.display = 'none';
