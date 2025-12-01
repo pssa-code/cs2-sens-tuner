@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS2 HUB: AIM GOD v21 - HEADSHOT SINGULARITY</title>
+    <title>CS2 HUB: AIM GOD v24 - ASYMMETRIC LOCK</title>
     <style>
         :root {
             --bg: #0f0f0f;
@@ -60,7 +60,6 @@
         .nav-btn:hover { background: #252525; color: #fff; }
         .nav-btn.active { background: #222; color: #fff; border-left: 3px solid var(--primary); }
         
-        /* Estilo especial para el botón de Crosshairs */
         .nav-btn.cross-btn:hover { color: var(--crosshair); }
         .nav-btn.cross-btn.active { border-left-color: var(--crosshair); }
 
@@ -76,7 +75,6 @@
         .subtitle { color: #888; margin-bottom: 30px; line-height: 1.5; max-width: 800px; }
 
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
         .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
 
         .card { 
@@ -133,6 +131,13 @@
         .big-btn { width: 100%; padding: 15px; background: var(--primary); color: #000; border: none; font-weight: 800; cursor: pointer; border-radius: 4px; transition: 0.2s; }
         .big-btn:hover { background: #69f0ae; }
 
+        /* PSA EXTRA INFO */
+        .axis-info { font-size: 0.7rem; color: #777; margin-top: 8px; font-family: var(--font-mono); letter-spacing: 0.5px; border-top: 1px solid #222; padding-top: 8px; }
+        .axis-row { display: flex; justify-content: space-between; margin-bottom: 4px; }
+        .axis-label { color: #555; }
+        .axis-val { color: var(--primary); font-weight: bold; }
+        .pitch-val { color: var(--accent); font-weight: bold; } /* Color diferente para Pitch */
+
         /* AUTOEXEC */
         .cfg-wrapper { background: #0a0a0a; border: 1px solid #333; height: 500px; display: flex; flex-direction: column; }
         .cfg-body { flex: 1; padding: 20px; overflow-y: auto; font-family: var(--font-mono); font-size: 0.8rem; color: #ccc; white-space: pre-wrap; }
@@ -177,16 +182,15 @@
     <div class="main">
 
         <div id="tab-calib" class="tab-content active">
-            <h1>Calibrador PSA (Headshot Singularity)</h1>
-            <p class="subtitle">Algoritmo v21: 8 decimales + Convergencia Progresiva para tracking de pixel único.</p>
+            <h1>Calibrador PSA (Asymmetric Headshot Lock)</h1>
+            <p class="subtitle">Algoritmo v24: Geometría asimétrica (No 1:1) para estabilización vertical automática.</p>
 
             <div class="card">
-                <h3>📝 Instrucciones CRÍTICAS</h3>
+                <h3>📝 Instrucciones (Asimetría)</h3>
                 <div class="how-to">
-                    1. Pon la distancia más larga posible en el mapa (ej: Mirage CT a T).<br>
-                    2. Apunta a un punto minúsculo (un agujero de bala o cabeza de bot).<br>
-                    3. Haz tracking (muévete izquierda/derecha manteniendo la mira en el punto).<br>
-                    4. <strong>IMPORTANTE:</strong> El algoritmo se cerrará agresivamente al final. Busca el control micro.
+                    1. Este modo aplica <strong>"Fricción Vertical"</strong> para mantener la mira a la altura de la cabeza.<br>
+                    2. <strong>m_yaw (X):</strong> Se mantiene rápido para giros.<br>
+                    3. <strong>m_pitch (Y):</strong> Se vuelve más denso/lento para evitar errores verticales.
                 </div>
             </div>
             
@@ -206,20 +210,30 @@
             <div id="psa-active" style="display:none;">
                 <div style="text-align:center; margin-bottom:20px;">RONDA <span id="iter">1</span> / 6</div>
                 <div style="display:flex; gap:20px;">
-                    <div onclick="choose('low')" style="flex:1; background:#111; padding:30px; text-align:center; border:1px solid #333; cursor:pointer;">
+                    <div onclick="choose('low')" style="flex:1; background:#111; padding:30px; text-align:center; border:1px solid #333; cursor:pointer; position:relative;">
                         <div style="color:#888;">OPCIÓN A</div>
-                        <div style="font-size:1.6rem; color:#fff;" id="val-low">0.00000000</div>
+                        <div style="font-size:1.8rem; color:#fff;" id="val-low">0.000000</div>
+                        <div class="axis-info">
+                            <div class="axis-row"><span class="axis-label">m_yaw (X):</span> <span class="axis-val" id="yaw-low">0.000000</span></div>
+                            <div class="axis-row"><span class="axis-label">m_pitch (Y):</span> <span class="pitch-val" id="pitch-low">0.000000</span></div>
+                        </div>
                     </div>
-                    <div onclick="choose('high')" style="flex:1; background:#111; padding:30px; text-align:center; border:1px solid #333; cursor:pointer;">
+                    <div onclick="choose('high')" style="flex:1; background:#111; padding:30px; text-align:center; border:1px solid #333; cursor:pointer; position:relative;">
                         <div style="color:#888;">OPCIÓN B</div>
-                        <div style="font-size:1.6rem; color:#fff;" id="val-high">0.00000000</div>
+                        <div style="font-size:1.8rem; color:#fff;" id="val-high">0.000000</div>
+                        <div class="axis-info">
+                            <div class="axis-row"><span class="axis-label">m_yaw (X):</span> <span class="axis-val" id="yaw-high">0.000000</span></div>
+                            <div class="axis-row"><span class="axis-label">m_pitch (Y):</span> <span class="pitch-val" id="pitch-high">0.000000</span></div>
+                        </div>
                     </div>
                 </div>
             </div>
             
             <div id="psa-result" style="display:none; text-align:center;">
-                <h1 id="final-res" style="color:var(--primary)">0.00000000</h1>
-                <div class="code-box" onclick="copyFinal()">sensitivity <span id="final-cmd">0.00000000</span></div>
+                <h1 id="final-res" style="color:var(--primary)">0.000000</h1>
+                <div class="code-box" onclick="copyFinal()">
+                    sensitivity <span id="final-cmd">0.00</span>; m_yaw <span id="final-yaw">0.00</span>; m_pitch <span id="final-pitch">0.00</span>
+                </div>
                 <button class="big-btn" style="margin-top:20px;" onclick="location.reload()">REINICIAR</button>
             </div>
         </div>
@@ -774,7 +788,7 @@ Windows Registry Editor Version 5.00
                         <strong>Propiedades de Steam > CS2 > Parámetros de lanzamiento:</strong><br>
                         <span style="color: #ffaa00; font-size: 0.8rem;">⚠️ Nota: Usa bajo tu propio riesgo, algunos parámetros pueden afectar la estabilidad</span>
                     </div>
-                    <div class="code-box" onclick="copyText(this)">-freq 240 -refresh 240 -tickrate 128 -high -console -nojoy -threads 8 -processheap -gl -nod3d9ex -safe -low -disable_eac_v2 -disable_anticheat -fullscreen -single_core -novid -nocrashdialog -minimize -mat_queue_mode 2 -cl_cmdrate 128 -cl_updaterate 128 -rate 786432 -cl_interp_ratio 1 -cl_interp 0.015625 -noforcemaccel -noforcemspd -noforcemparms</div>
+                    <div class="code-box" onclick="copyText(this)">-freq 240 -refresh 240 -tickrate 128 -high -console -nojoy -threads 16 -processheap -gl -nod3d9ex -safe -low -disable_eac_v2 -disable_anticheat -fullscreen -single_core -novid -nocrashdialog -minimize -mat_queue_mode 2 -cl_cmdrate 128 -cl_updaterate 128 -rate 786432 -cl_interp_ratio 1 -cl_interp 0.015625 -noforcemaccel -noforcemspd -noforcemparms</div>
                 </div>
                 
                 <div class="card" style="border-top:3px solid #ff9500;">
@@ -935,10 +949,18 @@ cl_spec_follow_angle 0.0</div>
 
         function copyText(el) { navigator.clipboard.writeText(el.innerText); el.style.borderColor = '#00e676'; setTimeout(()=>el.style.borderColor='#333', 300); }
         function copyAutoexec() { navigator.clipboard.writeText(document.getElementById('cfg-text').innerText); alert("Copiado!"); }
-        function copyFinal() { navigator.clipboard.writeText("sensitivity " + document.getElementById('final-cmd').innerText); alert("Copiado!"); }
+        
+        function copyFinal() { 
+            let sens = document.getElementById('final-cmd').innerText;
+            let yaw = document.getElementById('final-yaw').innerText;
+            let pitch = document.getElementById('final-pitch').innerText;
+            navigator.clipboard.writeText(`sensitivity ${sens}; m_yaw ${yaw}; m_pitch ${pitch}`); 
+            alert("Copiado: Sens + Yaw + Pitch"); 
+        }
 
-        // PSA Logic QUANTUM SINGULARITY (v21)
-        let state = { base: 2.0, iter: 0, range: 0.5, low: 0, high: 0 };
+        // PSA Logic QUANTUM (v24 - ASYMMETRIC LOCK)
+        let state = { base: 2.0, iter: 0, range: 0.5, low: 0, high: 0, yawLow: 0.022, yawHigh: 0.022, pitchLow: 0.022, pitchHigh: 0.022 };
+        
         function startPSA() {
             state.base = parseFloat(document.getElementById('base').value);
             state.range = parseFloat(document.getElementById('profile').value); 
@@ -947,34 +969,87 @@ cl_spec_follow_angle 0.0</div>
             document.getElementById('psa-active').style.display = 'block';
             updateRound();
         }
+
+        // Helper: Calculate Yaw (X) - Conservative Scale
+        // Range: 0.5 sens -> 3.5 sens maps to 0.0220 -> 0.0210
+        function calculateYaw(sens) {
+            const minSens = 0.5;
+            const maxSens = 3.5;
+            const minYaw = 0.021000; // X is faster
+            const maxYaw = 0.022000; // Standard
+            
+            let ratio = (sens - minSens) / (maxSens - minSens);
+            if (ratio < 0) ratio = 0;
+            if (ratio > 1) ratio = 1;
+
+            return maxYaw - (ratio * (maxYaw - minYaw));
+        }
+
+        // Helper: Calculate Pitch (Y) - Aggressive Lock Scale
+        // Range: 0.5 sens -> 3.5 sens maps to 0.0220 -> 0.0200
+        function calculatePitch(sens) {
+            const minSens = 0.5;
+            const maxSens = 3.5;
+            const minPitch = 0.020000; // Y is slower (tighter) for headshot stability
+            const maxPitch = 0.022000; // Standard
+            
+            let ratio = (sens - minSens) / (maxSens - minSens);
+            if (ratio < 0) ratio = 0;
+            if (ratio > 1) ratio = 1;
+
+            return maxPitch - (ratio * (maxPitch - minPitch));
+        }
+
         function updateRound() {
-            // Algoritmo logarítmico
+            // Logarithmic Algorithm
             state.low = state.base / (1 + state.range); 
             state.high = state.base * (1 + state.range);
-            // 8 DECIMALES: Límite del motor Source 2
-            document.getElementById('val-low').innerText = state.low.toFixed(8);
-            document.getElementById('val-high').innerText = state.high.toFixed(8);
+            
+            // Calculate Asymmetric Axis
+            state.yawLow = calculateYaw(state.low);
+            state.pitchLow = calculatePitch(state.low);
+            
+            state.yawHigh = calculateYaw(state.high);
+            state.pitchHigh = calculatePitch(state.high);
+
+            // Display Values
+            document.getElementById('val-low').innerText = state.low.toFixed(6);
+            document.getElementById('val-high').innerText = state.high.toFixed(6);
+            
+            document.getElementById('yaw-low').innerText = state.yawLow.toFixed(6);
+            document.getElementById('pitch-low').innerText = state.pitchLow.toFixed(6);
+            
+            document.getElementById('yaw-high').innerText = state.yawHigh.toFixed(6);
+            document.getElementById('pitch-high').innerText = state.pitchHigh.toFixed(6);
+
             document.getElementById('iter').innerText = state.iter;
         }
+
         function choose(side) {
             state.base = side === 'low' ? state.low : state.high;
-            navigator.clipboard.writeText(`sensitivity ${state.base.toFixed(8)}`);
+            let currentYaw = side === 'low' ? state.yawLow : state.yawHigh;
+            let currentPitch = side === 'low' ? state.pitchLow : state.pitchHigh;
+
+            // Copy Full Command String
+            let cmd = `sensitivity ${state.base.toFixed(6)}; m_yaw ${currentYaw.toFixed(6)}; m_pitch ${currentPitch.toFixed(6)}`;
+            navigator.clipboard.writeText(cmd);
             
-            // CONVERGENCIA PROGRESIVA HEADSHOT
-            // Rondas 1-2: Exploración (Factor Phi 0.618)
-            // Rondas 3-6: Cierre Quirúrgico (Factor 0.5 - Mitad exacta)
-            if (state.iter <= 2) {
-                state.range *= 0.618;
-            } else {
-                state.range *= 0.5;
-            }
+            // Dynamic Convergence
+            let reduction = state.iter <= 3 ? 0.7 : 0.5;
+            state.range *= reduction;
             
             state.iter++;
             if(state.iter > 6) {
                 document.getElementById('psa-active').style.display = 'none';
                 document.getElementById('psa-result').style.display = 'block';
-                document.getElementById('final-res').innerText = state.base.toFixed(8);
-                document.getElementById('final-cmd').innerText = state.base.toFixed(8);
+                
+                let finalYaw = calculateYaw(state.base);
+                let finalPitch = calculatePitch(state.base);
+                
+                document.getElementById('final-res').innerText = state.base.toFixed(6);
+                document.getElementById('final-cmd').innerText = state.base.toFixed(6);
+                document.getElementById('final-yaw').innerText = finalYaw.toFixed(6);
+                document.getElementById('final-pitch').innerText = finalPitch.toFixed(6);
             } else { updateRound(); }
         }
     </script>
