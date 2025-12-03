@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS2 HUB: AIM GOD v24 - ASYMMETRIC LOCK</title>
+    <title>CS2 HUB: AIM GOD v26 - GOD MODE</title>
     <style>
         :root {
             --bg: #0f0f0f;
             --panel: #181818;
             --border: #333;
             --primary: #00e676; /* Guide Green */
-            --accent: #2979ff; /* Blue */
+            --accent: #d500f9; /* Purple God Mode */
             --danger: #ff1744;
             --text-main: #eeeeee;
-            --crosshair: #ff0055; /* Crosshair Tab Color */
+            --crosshair: #ff0055;
             --font-mono: 'Consolas', 'Monaco', monospace;
         }
 
@@ -43,7 +43,7 @@
             font-weight: 900;
             color: #fff;
             margin-bottom: 20px;
-            border-left: 4px solid var(--primary);
+            border-left: 4px solid var(--accent); /* Purple for God Mode */
             padding-left: 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -58,7 +58,7 @@
             width: 100%; margin-bottom: 2px;
         }
         .nav-btn:hover { background: #252525; color: #fff; }
-        .nav-btn.active { background: #222; color: #fff; border-left: 3px solid var(--primary); }
+        .nav-btn.active { background: #222; color: #fff; border-left: 3px solid var(--accent); }
         
         .nav-btn.cross-btn:hover { color: var(--crosshair); }
         .nav-btn.cross-btn.active { border-left-color: var(--crosshair); }
@@ -101,8 +101,8 @@
 
         /* INSTRUCTION BLOCK */
         .how-to {
-            background: rgba(0, 230, 118, 0.05);
-            border-left: 3px solid var(--primary);
+            background: rgba(213, 0, 249, 0.05); /* Purple tint */
+            border-left: 3px solid var(--accent);
             padding: 10px 15px;
             margin: 15px 0;
             font-size: 0.85rem;
@@ -110,7 +110,7 @@
             border-radius: 0 4px 4px 0;
             line-height: 1.6;
         }
-        .how-to strong { color: var(--primary); display: block; margin-bottom: 4px; font-size: 0.75rem; text-transform: uppercase; }
+        .how-to strong { color: var(--accent); display: block; margin-bottom: 4px; font-size: 0.75rem; text-transform: uppercase; }
 
         /* CODE BOX */
         .code-box {
@@ -128,15 +128,12 @@
 
         /* PSA */
         .calib-input, select { background: #111; border: 1px solid #333; color: #fff; padding: 15px; width: 100%; border-radius: 4px; margin-bottom: 15px; box-sizing: border-box; }
-        .big-btn { width: 100%; padding: 15px; background: var(--primary); color: #000; border: none; font-weight: 800; cursor: pointer; border-radius: 4px; transition: 0.2s; }
-        .big-btn:hover { background: #69f0ae; }
+        .big-btn { width: 100%; padding: 15px; background: var(--accent); color: #fff; border: none; font-weight: 800; cursor: pointer; border-radius: 4px; transition: 0.2s; }
+        .big-btn:hover { background: #ea80fc; color: #000; }
 
-        /* PSA EXTRA INFO */
-        .axis-info { font-size: 0.7rem; color: #777; margin-top: 8px; font-family: var(--font-mono); letter-spacing: 0.5px; border-top: 1px solid #222; padding-top: 8px; }
-        .axis-row { display: flex; justify-content: space-between; margin-bottom: 4px; }
-        .axis-label { color: #555; }
-        .axis-val { color: var(--primary); font-weight: bold; }
-        .pitch-val { color: var(--accent); font-weight: bold; } /* Color diferente para Pitch */
+        /* AGGRESSION METER */
+        .aggro-meter { font-size: 0.7rem; color: #555; text-align:center; margin-top: 5px; text-transform:uppercase; letter-spacing:1px; }
+        .aggro-val { color: var(--accent); font-weight:bold; }
 
         /* AUTOEXEC */
         .cfg-wrapper { background: #0a0a0a; border: 1px solid #333; height: 500px; display: flex; flex-direction: column; }
@@ -150,10 +147,10 @@
 <body>
 
     <div class="sidebar">
-        <div class="logo">CS2 HUB <span>AIM GOD</span></div>
+        <div class="logo">CS2 HUB <span>GOD MODE</span></div>
         
         <div class="nav-cat">Aim & Crosshair</div>
-        <button class="nav-btn active" onclick="setTab('calib', this)">🎯 Calibrador PSA</button>
+        <button class="nav-btn active" onclick="setTab('calib', this)">🎯 Calibrador GOD</button>
         <button class="nav-btn cross-btn" onclick="setTab('crosshair', this)">➕ Pro Crosshairs <span class="badge" style="background:var(--crosshair)">NEW</span></button>
         <button class="nav-btn" onclick="setTab('autoexec', this)">📜 Autoexec Final</button>
 
@@ -182,15 +179,15 @@
     <div class="main">
 
         <div id="tab-calib" class="tab-content active">
-            <h1>Calibrador PSA (Asymmetric Headshot Lock)</h1>
-            <p class="subtitle">Algoritmo v24: Geometría asimétrica (No 1:1) para estabilización vertical automática.</p>
+            <h1>Calibrador PSA (GOD MODE)</h1>
+            <p class="subtitle">Algoritmo v26: Decaimiento Exponencial Agresivo para precisión "One Tap" garantizada.</p>
 
-            <div class="card">
-                <h3>📝 Instrucciones (Asimetría)</h3>
+            <div class="card" style="border-color: var(--accent); background: rgba(213,0,249,0.02);">
+                <h3>📝 Protocolo de Agresividad</h3>
                 <div class="how-to">
-                    1. Este modo aplica <strong>"Fricción Vertical"</strong> para mantener la mira a la altura de la cabeza.<br>
-                    2. <strong>m_yaw (X):</strong> Se mantiene rápido para giros.<br>
-                    3. <strong>m_pitch (Y):</strong> Se vuelve más denso/lento para evitar errores verticales.
+                    1. <strong>Rondas 1-2 (Red):</strong> Encuentra tu zona de confort general.<br>
+                    2. <strong>Rondas 3-4 (Vicio):</strong> El algoritmo corta el 50% de las opciones.<br>
+                    3. <strong>Rondas 5-6 (Láser):</strong> Ajuste sub-pixel. Debes sentir qué sensibilidad "pega" más en la cabeza.
                 </div>
             </div>
             
@@ -204,7 +201,7 @@
                     <option value="0.6">Entry Fragger (Agresivo/Rápido)</option>
                     <option value="0.65">Wrist Aim (Solo Muñeca)</option>
                 </select>
-                <button class="big-btn" onclick="startPSA()">INICIAR CALIBRACIÓN</button>
+                <button class="big-btn" onclick="startPSA()">INICIAR CALIBRACIÓN EXTREMA</button>
             </div>
 
             <div id="psa-active" style="display:none;">
@@ -212,27 +209,20 @@
                 <div style="display:flex; gap:20px;">
                     <div onclick="choose('low')" style="flex:1; background:#111; padding:30px; text-align:center; border:1px solid #333; cursor:pointer; position:relative;">
                         <div style="color:#888;">OPCIÓN A</div>
-                        <div style="font-size:1.8rem; color:#fff;" id="val-low">0.000000</div>
-                        <div class="axis-info">
-                            <div class="axis-row"><span class="axis-label">m_yaw (X):</span> <span class="axis-val" id="yaw-low">0.000000</span></div>
-                            <div class="axis-row"><span class="axis-label">m_pitch (Y):</span> <span class="pitch-val" id="pitch-low">0.000000</span></div>
-                        </div>
+                        <div style="font-size:2rem; color:#fff;" id="val-low">0.000000</div>
                     </div>
                     <div onclick="choose('high')" style="flex:1; background:#111; padding:30px; text-align:center; border:1px solid #333; cursor:pointer; position:relative;">
                         <div style="color:#888;">OPCIÓN B</div>
-                        <div style="font-size:1.8rem; color:#fff;" id="val-high">0.000000</div>
-                        <div class="axis-info">
-                            <div class="axis-row"><span class="axis-label">m_yaw (X):</span> <span class="axis-val" id="yaw-high">0.000000</span></div>
-                            <div class="axis-row"><span class="axis-label">m_pitch (Y):</span> <span class="pitch-val" id="pitch-high">0.000000</span></div>
-                        </div>
+                        <div style="font-size:2rem; color:#fff;" id="val-high">0.000000</div>
                     </div>
                 </div>
+                <div class="aggro-meter">Agresividad: <span id="aggro-level" class="aggro-val">BAJA</span></div>
             </div>
             
             <div id="psa-result" style="display:none; text-align:center;">
-                <h1 id="final-res" style="color:var(--primary)">0.000000</h1>
+                <h1 id="final-res" style="color:var(--accent)">0.000000</h1>
                 <div class="code-box" onclick="copyFinal()">
-                    sensitivity <span id="final-cmd">0.00</span>; m_yaw <span id="final-yaw">0.00</span>; m_pitch <span id="final-pitch">0.00</span>
+                    sensitivity <span id="final-cmd">0.000000</span>
                 </div>
                 <button class="big-btn" style="margin-top:20px;" onclick="location.reload()">REINICIAR</button>
             </div>
@@ -952,14 +942,12 @@ cl_spec_follow_angle 0.0</div>
         
         function copyFinal() { 
             let sens = document.getElementById('final-cmd').innerText;
-            let yaw = document.getElementById('final-yaw').innerText;
-            let pitch = document.getElementById('final-pitch').innerText;
-            navigator.clipboard.writeText(`sensitivity ${sens}; m_yaw ${yaw}; m_pitch ${pitch}`); 
-            alert("Copiado: Sens + Yaw + Pitch"); 
+            navigator.clipboard.writeText(`sensitivity ${sens}`); 
+            alert("Sensibilidad copiada!"); 
         }
 
-        // PSA Logic QUANTUM (v24 - ASYMMETRIC LOCK)
-        let state = { base: 2.0, iter: 0, range: 0.5, low: 0, high: 0, yawLow: 0.022, yawHigh: 0.022, pitchLow: 0.022, pitchHigh: 0.022 };
+        // PSA Logic GOD MODE (v26 - Aggressive Exponential Decay)
+        let state = { base: 2.0, iter: 0, range: 0.5, low: 0, high: 0 };
         
         function startPSA() {
             state.base = parseFloat(document.getElementById('base').value);
@@ -970,86 +958,41 @@ cl_spec_follow_angle 0.0</div>
             updateRound();
         }
 
-        // Helper: Calculate Yaw (X) - Conservative Scale
-        // Range: 0.5 sens -> 3.5 sens maps to 0.0220 -> 0.0210
-        function calculateYaw(sens) {
-            const minSens = 0.5;
-            const maxSens = 3.5;
-            const minYaw = 0.021000; // X is faster
-            const maxYaw = 0.022000; // Standard
-            
-            let ratio = (sens - minSens) / (maxSens - minSens);
-            if (ratio < 0) ratio = 0;
-            if (ratio > 1) ratio = 1;
-
-            return maxYaw - (ratio * (maxYaw - minYaw));
-        }
-
-        // Helper: Calculate Pitch (Y) - Aggressive Lock Scale
-        // Range: 0.5 sens -> 3.5 sens maps to 0.0220 -> 0.0200
-        function calculatePitch(sens) {
-            const minSens = 0.5;
-            const maxSens = 3.5;
-            const minPitch = 0.020000; // Y is slower (tighter) for headshot stability
-            const maxPitch = 0.022000; // Standard
-            
-            let ratio = (sens - minSens) / (maxSens - minSens);
-            if (ratio < 0) ratio = 0;
-            if (ratio > 1) ratio = 1;
-
-            return maxPitch - (ratio * (maxPitch - minPitch));
-        }
-
         function updateRound() {
-            // Logarithmic Algorithm
+            // Algoritmo logarítmico (Weber)
             state.low = state.base / (1 + state.range); 
             state.high = state.base * (1 + state.range);
             
-            // Calculate Asymmetric Axis
-            state.yawLow = calculateYaw(state.low);
-            state.pitchLow = calculatePitch(state.low);
-            
-            state.yawHigh = calculateYaw(state.high);
-            state.pitchHigh = calculatePitch(state.high);
-
-            // Display Values
+            // Display Sens (6 Decimales)
             document.getElementById('val-low').innerText = state.low.toFixed(6);
             document.getElementById('val-high').innerText = state.high.toFixed(6);
-            
-            document.getElementById('yaw-low').innerText = state.yawLow.toFixed(6);
-            document.getElementById('pitch-low').innerText = state.pitchLow.toFixed(6);
-            
-            document.getElementById('yaw-high').innerText = state.yawHigh.toFixed(6);
-            document.getElementById('pitch-high').innerText = state.pitchHigh.toFixed(6);
-
             document.getElementById('iter').innerText = state.iter;
+
+            // Visual Aggression Meter
+            let aggroText = "BAJA";
+            let aggroColor = "#555";
+            if (state.iter > 2) { aggroText = "MEDIA"; aggroColor = "#2979ff"; }
+            if (state.iter > 4) { aggroText = "EXTREMA"; aggroColor = "#d500f9"; }
+            document.getElementById('aggro-level').innerText = aggroText;
+            document.getElementById('aggro-level').style.color = aggroColor;
         }
 
         function choose(side) {
             state.base = side === 'low' ? state.low : state.high;
-            let currentYaw = side === 'low' ? state.yawLow : state.yawHigh;
-            let currentPitch = side === 'low' ? state.pitchLow : state.pitchHigh;
-
-            // Copy Full Command String
-            let cmd = `sensitivity ${state.base.toFixed(6)}; m_yaw ${currentYaw.toFixed(6)}; m_pitch ${currentPitch.toFixed(6)}`;
-            navigator.clipboard.writeText(cmd);
+            navigator.clipboard.writeText(`sensitivity ${state.base.toFixed(6)}`);
             
-            // Dynamic Convergence
-            let reduction = state.iter <= 3 ? 0.7 : 0.5;
-            state.range *= reduction;
+            // AGGRESSIVE EXPONENTIAL DECAY
+            // Factores de corte por ronda para "cerrar la pinza" más rápido
+            const factors = [0.65, 0.60, 0.55, 0.50, 0.40, 0.30];
+            let factor = factors[state.iter - 1] || 0.5; // Default safe fallback
+            state.range *= factor;
             
             state.iter++;
             if(state.iter > 6) {
                 document.getElementById('psa-active').style.display = 'none';
                 document.getElementById('psa-result').style.display = 'block';
-                
-                let finalYaw = calculateYaw(state.base);
-                let finalPitch = calculatePitch(state.base);
-                
                 document.getElementById('final-res').innerText = state.base.toFixed(6);
                 document.getElementById('final-cmd').innerText = state.base.toFixed(6);
-                document.getElementById('final-yaw').innerText = finalYaw.toFixed(6);
-                document.getElementById('final-pitch').innerText = finalPitch.toFixed(6);
             } else { updateRound(); }
         }
     </script>
