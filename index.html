@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS2 HUB: AIM GOD v26 - GOD MODE</title>
+    <title>CS2 HUB: AIM GOD v30 - TRAINER INTEGRATED</title>
     <style>
         :root {
             --bg: #0f0f0f;
             --panel: #181818;
             --border: #333;
             --primary: #00e676; /* Guide Green */
-            --accent: #d500f9; /* Purple God Mode */
+            --accent: #ffd700; /* Gold for Golden Ratio */
+            --trainer: #ff0055; /* Trainer Pink */
             --danger: #ff1744;
             --text-main: #eeeeee;
             --crosshair: #ff0055;
@@ -43,7 +44,7 @@
             font-weight: 900;
             color: #fff;
             margin-bottom: 20px;
-            border-left: 4px solid var(--accent); /* Purple for God Mode */
+            border-left: 4px solid var(--accent); /* GOLD */
             padding-left: 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -63,7 +64,11 @@
         .nav-btn.cross-btn:hover { color: var(--crosshair); }
         .nav-btn.cross-btn.active { border-left-color: var(--crosshair); }
 
-        .badge { font-size: 0.6rem; background: var(--accent); color: #fff; padding: 1px 5px; border-radius: 3px; margin-left: auto; }
+        /* Estilo Botón Trainer */
+        .nav-btn.trainer-btn:hover { color: var(--trainer); }
+        .nav-btn.trainer-btn.active { border-left-color: var(--trainer); }
+
+        .badge { font-size: 0.6rem; background: var(--accent); color: #000; padding: 1px 5px; border-radius: 3px; margin-left: auto; font-weight: bold; }
 
         /* MAIN CONTENT */
         .main { flex: 1; background: #000; position: relative; }
@@ -101,7 +106,7 @@
 
         /* INSTRUCTION BLOCK */
         .how-to {
-            background: rgba(213, 0, 249, 0.05); /* Purple tint */
+            background: rgba(255, 215, 0, 0.05); /* Gold tint */
             border-left: 3px solid var(--accent);
             padding: 10px 15px;
             margin: 15px 0;
@@ -128,12 +133,37 @@
 
         /* PSA */
         .calib-input, select { background: #111; border: 1px solid #333; color: #fff; padding: 15px; width: 100%; border-radius: 4px; margin-bottom: 15px; box-sizing: border-box; }
-        .big-btn { width: 100%; padding: 15px; background: var(--accent); color: #fff; border: none; font-weight: 800; cursor: pointer; border-radius: 4px; transition: 0.2s; }
-        .big-btn:hover { background: #ea80fc; color: #000; }
+        .big-btn { width: 100%; padding: 15px; background: var(--accent); color: #000; border: none; font-weight: 800; cursor: pointer; border-radius: 4px; transition: 0.2s; }
+        .big-btn:hover { background: #fff; }
 
-        /* AGGRESSION METER */
+        /* AGGRO METER */
         .aggro-meter { font-size: 0.7rem; color: #555; text-align:center; margin-top: 5px; text-transform:uppercase; letter-spacing:1px; }
         .aggro-val { color: var(--accent); font-weight:bold; }
+
+        /* AIM TRAINER CSS */
+        #game-container {
+            position: relative; width: 100%; height: 500px; background: #111;
+            border: 1px solid #333; border-radius: 8px; overflow: hidden; cursor: crosshair; margin-top: 20px;
+        }
+        #aim-canvas { display: block; }
+        .game-overlay {
+            position: absolute; top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.85); display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 10;
+        }
+        .game-hud {
+            display: flex; justify-content: space-between; padding: 15px 25px;
+            background: #1a1a1a; border-bottom: 1px solid #333; font-weight: bold; border-radius: 8px 8px 0 0;
+        }
+        .hud-item { color: #888; font-size: 0.9rem; letter-spacing: 1px; }
+        .hud-val { color: #fff; margin-left: 5px; color: var(--trainer); }
+        .play-btn {
+            padding: 15px 50px; background: var(--trainer); color: #fff; font-size: 1.5rem;
+            border: none; border-radius: 4px; cursor: pointer; font-weight: 900;
+            transition: 0.2s; text-transform: uppercase; letter-spacing: 2px;
+        }
+        .play-btn:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(255, 0, 85, 0.4); }
+        .last-sens-display { margin-bottom: 30px; color: var(--accent); font-family: var(--font-mono); font-size: 1.2rem; }
 
         /* AUTOEXEC */
         .cfg-wrapper { background: #0a0a0a; border: 1px solid #333; height: 500px; display: flex; flex-direction: column; }
@@ -147,10 +177,11 @@
 <body>
 
     <div class="sidebar">
-        <div class="logo">CS2 HUB <span>GOD MODE</span></div>
+        <div class="logo">CS2 HUB <span>AIM GOD</span></div>
         
         <div class="nav-cat">Aim & Crosshair</div>
-        <button class="nav-btn active" onclick="setTab('calib', this)">🎯 Calibrador GOD</button>
+        <button class="nav-btn active" onclick="setTab('calib', this)">🎯 Calibrador PHI</button>
+        <button class="nav-btn trainer-btn" onclick="setTab('trainer', this)">🎮 Aim Trainer <span class="badge" style="background:var(--trainer); color:#fff;">NEW</span></button>
         <button class="nav-btn cross-btn" onclick="setTab('crosshair', this)">➕ Pro Crosshairs <span class="badge" style="background:var(--crosshair)">NEW</span></button>
         <button class="nav-btn" onclick="setTab('autoexec', this)">📜 Autoexec Final</button>
 
@@ -179,15 +210,16 @@
     <div class="main">
 
         <div id="tab-calib" class="tab-content active">
-            <h1>Calibrador PSA (GOD MODE)</h1>
-            <p class="subtitle">Algoritmo v26: Decaimiento Exponencial Agresivo para precisión "One Tap" garantizada.</p>
+            <h1>Calibrador PSA (Golden Ratio)</h1>
+            <p class="subtitle">Algoritmo v27: Búsqueda de Sección Dorada (Phi) para precisión matemática absoluta.</p>
 
-            <div class="card" style="border-color: var(--accent); background: rgba(213,0,249,0.02);">
-                <h3>📝 Protocolo de Agresividad</h3>
+            <div class="card" style="border-left: 4px solid var(--accent); background: rgba(255,215,0,0.02);">
+                <h3>📝 Matemáticas de Precisión</h3>
                 <div class="how-to">
-                    1. <strong>Rondas 1-2 (Red):</strong> Encuentra tu zona de confort general.<br>
-                    2. <strong>Rondas 3-4 (Vicio):</strong> El algoritmo corta el 50% de las opciones.<br>
-                    3. <strong>Rondas 5-6 (Láser):</strong> Ajuste sub-pixel. Debes sentir qué sensibilidad "pega" más en la cabeza.
+                    1. <strong>Phi (Φ):</strong> El algoritmo usa la proporción divina (1.618) para reducir el rango.<br>
+                    2. <strong>Rondas 1-2:</strong> Reducción al 61.8%.<br>
+                    3. <strong>Rondas 5-6:</strong> Reducción al 14.6%. Ajuste sub-pixel para headshots.<br>
+                    4. <strong>Objetivo:</strong> Encontrar el centro matemático de tu coordinación mano-ojo.
                 </div>
             </div>
             
@@ -201,22 +233,22 @@
                     <option value="0.6">Entry Fragger (Agresivo/Rápido)</option>
                     <option value="0.65">Wrist Aim (Solo Muñeca)</option>
                 </select>
-                <button class="big-btn" onclick="startPSA()">INICIAR CALIBRACIÓN EXTREMA</button>
+                <button class="big-btn" onclick="startPSA()">INICIAR BÚSQUEDA DORADA</button>
             </div>
 
             <div id="psa-active" style="display:none;">
                 <div style="text-align:center; margin-bottom:20px;">RONDA <span id="iter">1</span> / 6</div>
                 <div style="display:flex; gap:20px;">
-                    <div onclick="choose('low')" style="flex:1; background:#111; padding:30px; text-align:center; border:1px solid #333; cursor:pointer; position:relative;">
+                    <div onclick="choose('low')" style="flex:1; background:#111; padding:30px; text-align:center; border:1px solid #333; cursor:pointer;">
                         <div style="color:#888;">OPCIÓN A</div>
                         <div style="font-size:2rem; color:#fff;" id="val-low">0.000000</div>
                     </div>
-                    <div onclick="choose('high')" style="flex:1; background:#111; padding:30px; text-align:center; border:1px solid #333; cursor:pointer; position:relative;">
+                    <div onclick="choose('high')" style="flex:1; background:#111; padding:30px; text-align:center; border:1px solid #333; cursor:pointer;">
                         <div style="color:#888;">OPCIÓN B</div>
                         <div style="font-size:2rem; color:#fff;" id="val-high">0.000000</div>
                     </div>
                 </div>
-                <div class="aggro-meter">Agresividad: <span id="aggro-level" class="aggro-val">BAJA</span></div>
+                <div class="aggro-meter">Precisión: <span id="aggro-level" class="aggro-val">ESTÁNDAR</span></div>
             </div>
             
             <div id="psa-result" style="display:none; text-align:center;">
@@ -225,6 +257,34 @@
                     sensitivity <span id="final-cmd">0.000000</span>
                 </div>
                 <button class="big-btn" style="margin-top:20px;" onclick="location.reload()">REINICIAR</button>
+            </div>
+        </div>
+
+        <div id="tab-trainer" class="tab-content">
+            <h1 style="color:var(--trainer)">Reflex Aim Trainer</h1>
+            <p class="subtitle">Entrena tus reflejos y calienta la muñeca con el minijuego integrado (Gridshot Style).</p>
+
+            <div class="game-hud">
+                <div class="hud-item">SCORE: <span id="score" class="hud-val">0</span></div>
+                <div class="hud-item">TIEMPO: <span id="time" class="hud-val">30s</span></div>
+                <div class="hud-item">PRECISIÓN: <span id="acc" class="hud-val">100%</span></div>
+            </div>
+
+            <div id="game-container">
+                <canvas id="aim-canvas"></canvas>
+                
+                <div id="start-screen" class="game-overlay">
+                    <div class="last-sens-display">TU SENSIBILIDAD IDEAL (PSA): <span id="trainer-sens-display" style="color:#fff;">--</span></div>
+                    <button class="play-btn" onclick="startGame()">START</button>
+                    <p style="color:#666; margin-top:15px; font-size:0.8rem;">Elimina los objetivos lo más rápido posible.</p>
+                </div>
+
+                <div id="game-over" class="game-overlay" style="display:none;">
+                    <h1 style="color:var(--trainer); font-size:3rem; margin-bottom:10px;">GAME OVER</h1>
+                    <div style="font-size:1.5rem; margin-bottom:10px;">Puntuación: <span id="final-score" style="color:#fff;">0</span></div>
+                    <div style="color:#ccc; margin-bottom:30px;">KPS: <span id="final-kps" style="color:var(--primary);">0</span> (Kills Per Second)</div>
+                    <button class="play-btn" onclick="startGame()">RETRY</button>
+                </div>
             </div>
         </div>
 
@@ -778,6 +838,177 @@ Windows Registry Editor Version 5.00
                         <strong>Propiedades de Steam > CS2 > Parámetros de lanzamiento:</strong><br>
                         <span style="color: #ffaa00; font-size: 0.8rem;">⚠️ Nota: Usa bajo tu propio riesgo, algunos parámetros pueden afectar la estabilidad</span>
                     </div>
+                    <div class="code-box" onclick="copyText(this)">-freq 165 -refresh 165 -tickrate 128 -high -console -nojoy -threads 8 -processheap -gl -nod3d9ex -safe -low -disable_eac_v2 -disable_anticheat
+
+</div>
+                </div>
+                
+                <div class="card" style="border-top:3px solid #ff9500;">
+                    <h3>💻 Configuración Windows</h3>
+                    <div class="check"><div class="icon">➜</div> Modo de Energía: <span class="val">Máximo Rendimiento</span></div>
+                    <div class="check"><div class="icon">➜</div> Planificación HZ GPU: <span class="val">Desactivado</span></div>
+                    <div class="check"><div class="icon">➜</div> Game Bar: <span class="val">Desactivado</span></div>
+                    <div class="check"><div class="icon">➜</div> Xbox Access: <span class="val">Desactivado</span></div>
+                    <div class="check"><div class="icon">➜</div> Hardware Acelerado GPU: <span class="val">Activado</span></div>
+                    <div class="check"><div class="icon">➜</div> Memory Compression: <span class="val">Desactivado</span></div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card" style="border-top:3px solid #9c27b0;">
+                    <h3>🔧 Autoexec Variables</h3>
+                    <div class="how-to">
+                        <strong>Agregar al archivo autoexec.cfg:</strong>
+                    </div>
+                    <div class="code-box" onclick="copyText(this)">cl_timeout 5
+cl_cmdbackup 2
+cl_cmdrate 128
+cl_updaterate 128
+cl_interp_ratio 1
+cl_interp 0.015625
+rate 786432
+snd_mixahead 0.001
+fps_max 0
++engine_low_latency_sleep_after_client_tick true
+cl_disable_ragdolls 1
+cl_forcepreload 1
+mat_queue_mode 2</div>
+                </div>
+                
+                <div class="card" style="border-top:3px solid #607d8b;">
+                    <h3>🧹 Mantenimiento Sistema</h3>
+                    <div class="check"><div class="icon">➜</div> Limpiar Temp: <span class="val">Semanal</span></div>
+                    <div class="check"><div class="icon">➜</div> Actualizar Drivers: <span class="val">Mensual</span></div>
+                    <div class="check"><div class="icon">➜</div> Desfragmentar HDD: <span class="val">Mensual</span></div>
+                    <div class="check"><div class="icon">➜</div> Verificar SSD: <span class="val">Mensual</span></div>
+                    <div class="check"><div class="icon">➜</div> Limpiar Registro: <span class="val">Trimestral</span></div>
+                    <div class="check"><div class="icon">➜</div> Antivirus Exclusiones: <span class="val">CS2 + Steam</span></div>
+                    <div class="check"><div class="icon">➜</div> Cerrar Apps: <span class="val">Discord, OBS, etc.</span></div>
+                </div>
+            </div>
+
+            <div class="card" style="background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%); border: 1px solid #333;">
+                <h3>📊 Consejos Específicos por Hardware</h3>
+                <div class="grid-2" style="margin-top: 15px;">
+                    <div>
+                        <div class="check"><div class="icon">🎮</div> RTX 4090/4080: <span class="val">200-400+ FPS</span></div>
+                        <div class="check"><div class="icon">🎮</div> RTX 4070/3060: <span class="val">120-250 FPS</span></div>
+                        <div class="check"><div class="icon">🎮</div> GTX 1660/RTX 2060: <span class="val">100-200 FPS</span></div>
+                        <div class="check"><div class="icon">🎮</div> GTX 1050/RTX 3050: <span class="val">60-120 FPS</span></div>
+                    </div>
+                    <div>
+                        <div class="check"><div class="icon">🖥️</div> 240Hz Monitor: <span class="val">Min 144 FPS</span></div>
+                        <div class="check"><div class="icon">🖥️</div> 165Hz Monitor: <span class="val">Min 120 FPS</span></div>
+                        <div class="check"><div class="icon">🖥️</div> 144Hz Monitor: <span class="val">Min 100 FPS</span></div>
+                        <div class="check"><div class="icon">🖥️</div> 60Hz Monitor: <span class="val">Min 60 FPS</span></div>
+                    </div>
+                </div>
+                <div class="grid-2" style="margin-top: 15px;">
+                    <div class="how-to">
+                        <strong>🔧 Intel Processors:</strong><br>
+                        • Configurar threads = núcleos físicos<br>
+                        • Activar Intel Speed Step: OFF<br>
+                        • Turbo Boost: ON<br>
+                        • C-States: OFF para gaming
+                    </div>
+                    <div class="how-to">
+                        <strong>💪 AMD Processors:</strong><br>
+                        • Configurar threads = total de núcleos<br>
+                        • AMD Precision Boost: ON<br>
+                        • Global C-States: OFF<br>
+                        • PBO (Precision Boost Overdrive): ON
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="tab-fpspro" class="tab-content">
+            <h1>🚀 FPS Pro Extremo</h1>
+            <p class="subtitle">Configuraciones avanzadas para jugadores profesionales - MÁXIMO RENDIMIENTO.</p>
+
+            <div class="grid-2">
+                <div class="card" style="border-top:3px solid #ff1744;">
+                    <h3>⚡ Variables CS2 Ultra</h3>
+                    <div class="how-to">
+                        <strong>Consola del juego o autoexec.cfg:</strong>
+                    </div>
+                    <div class="code-box" onclick="copyText(this)">mat_queue_mode 2
+cl_phys_props_maxcount 0
+cl_ragdoll_force_count 0
+cl_phys_props_maxcount 0
+cl_minimap_icons 1
+cl_use_decals 0
+r_decals_force_systemmemory 1
+r_drawmodeldecals 0
+r_drawropes 0
+r_drawvrad 0
+r_drawtranslucentrenderables 0
+r_modelAmbientMin 0
+r_ambientBoost 0
+r_ambientSaturation 0
+r_ambientOcclusion 0
+r_bloom_halo_use 0
+r_bloom_pulse_clamp 0
+r_water_forceexpensive 0
+r_water_forcereflecttypes 0
+r_lightmap_encodefullbrightness 0
+r_nohz 1
+r_use_legacy_lightmap_garbage 0
+r_texture_stream_enabled 0
+r_texture_group_banlist "SkyBox, RenderTextures, Water"
+r_dynamic 0
+r_global_lightmap_anisotropy 0
+r_texture_stream_memory_egards 0
+r_creattemptextures 1
+r_queuedmaterials 0
+r_queueddecals 0
+r_precomputed_models 0
+r_prop_precache_distances 0
+r_propsmaxdistance 0
+r_propsmaxscreenwidth 0
+r_clocksync 0
+r_displayrefresh 0
+r_queued_light_reflection 0
+r_renderpass 0</div>
+                </div>
+                
+                <div class="card" style="border-top:3px solid #2979ff;">
+                    <h3>🔧 Windows Registry Tweaks</h3>
+                    <div class="how-to">
+                        <strong>Windows Registry Editor (regedit):</strong><br>
+                        <span style="color: #ffaa00; font-size: 0.8rem;">⚠️ Hacer respaldo antes de modificar</span>
+                    </div>
+                    <div class="code-box" onclick="copyText(this)">// 1. Desactivar GameDVR
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers
+"HwSchMode" = dword:00000002
+
+// 2. Optimizar memoria
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers
+"TdrDelay" = dword:00000060
+"TdrDdiDelay" = dword:00000060
+
+// 3. Desactivar compositor
+HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\DWM
+"Composition" = dword:00000000
+
+// 4. Prioridad del procesador
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TimeBrokerSvc
+"Start" = dword:00000003
+
+// 5. Desactivar servicios innecesarios
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\XblAuthManager
+"Start" = dword:00000004</div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card" style="border-top:3px solid #00e676;">
+                    <h3>🎮 Launch Options Extreme</h3>
+                    <div class="how-to">
+                        <strong>Steam > CS2 > Propiedades > Parámetros de lanzamiento:</strong><br>
+                        <span style="color: #ff4444; font-size: 0.8rem;">⚠️ SOLO PARA SISTEMAS MUY POTENTES</span>
+                    </div>
                     <div class="code-box" onclick="copyText(this)">-freq 240 -refresh 240 -tickrate 128 -high -console -nojoy -threads 16 -processheap -gl -nod3d9ex -safe -low -disable_eac_v2 -disable_anticheat -fullscreen -single_core -novid -nocrashdialog -minimize -mat_queue_mode 2 -cl_cmdrate 128 -cl_updaterate 128 -rate 786432 -cl_interp_ratio 1 -cl_interp 0.015625 -noforcemaccel -noforcemspd -noforcemparms</div>
                 </div>
                 
@@ -939,14 +1170,10 @@ cl_spec_follow_angle 0.0</div>
 
         function copyText(el) { navigator.clipboard.writeText(el.innerText); el.style.borderColor = '#00e676'; setTimeout(()=>el.style.borderColor='#333', 300); }
         function copyAutoexec() { navigator.clipboard.writeText(document.getElementById('cfg-text').innerText); alert("Copiado!"); }
-        
-        function copyFinal() { 
-            let sens = document.getElementById('final-cmd').innerText;
-            navigator.clipboard.writeText(`sensitivity ${sens}`); 
-            alert("Sensibilidad copiada!"); 
-        }
+        function copyFinal() { navigator.clipboard.writeText("sensitivity " + document.getElementById('final-cmd').innerText); alert("Copiado!"); }
 
-        // PSA Logic GOD MODE (v26 - Aggressive Exponential Decay)
+        // --- PSA LOGIC (v27 - GOLDEN RATIO) ---
+        const factors = [0.618, 0.618, 0.5, 0.382, 0.236, 0.146];
         let state = { base: 2.0, iter: 0, range: 0.5, low: 0, high: 0 };
         
         function startPSA() {
@@ -959,20 +1186,16 @@ cl_spec_follow_angle 0.0</div>
         }
 
         function updateRound() {
-            // Algoritmo logarítmico (Weber)
             state.low = state.base / (1 + state.range); 
             state.high = state.base * (1 + state.range);
-            
-            // Display Sens (6 Decimales)
             document.getElementById('val-low').innerText = state.low.toFixed(6);
             document.getElementById('val-high').innerText = state.high.toFixed(6);
             document.getElementById('iter').innerText = state.iter;
 
-            // Visual Aggression Meter
-            let aggroText = "BAJA";
+            let aggroText = "BUSCANDO";
             let aggroColor = "#555";
-            if (state.iter > 2) { aggroText = "MEDIA"; aggroColor = "#2979ff"; }
-            if (state.iter > 4) { aggroText = "EXTREMA"; aggroColor = "#d500f9"; }
+            if (state.iter > 2) { aggroText = "CERRANDO"; aggroColor = "#2979ff"; }
+            if (state.iter > 4) { aggroText = "PRECISIÓN ÁUREA"; aggroColor = "#ffd700"; }
             document.getElementById('aggro-level').innerText = aggroText;
             document.getElementById('aggro-level').style.color = aggroColor;
         }
@@ -980,14 +1203,13 @@ cl_spec_follow_angle 0.0</div>
         function choose(side) {
             state.base = side === 'low' ? state.low : state.high;
             navigator.clipboard.writeText(`sensitivity ${state.base.toFixed(6)}`);
-            
-            // AGGRESSIVE EXPONENTIAL DECAY
-            // Factores de corte por ronda para "cerrar la pinza" más rápido
-            const factors = [0.65, 0.60, 0.55, 0.50, 0.40, 0.30];
-            let factor = factors[state.iter - 1] || 0.5; // Default safe fallback
+            let factor = factors[state.iter - 1] || 0.146; 
             state.range *= factor;
-            
             state.iter++;
+            
+            // Actualizar el display del Trainer con la nueva sens
+            document.getElementById('trainer-sens-display').innerText = state.base.toFixed(6);
+
             if(state.iter > 6) {
                 document.getElementById('psa-active').style.display = 'none';
                 document.getElementById('psa-result').style.display = 'block';
@@ -995,6 +1217,129 @@ cl_spec_follow_angle 0.0</div>
                 document.getElementById('final-cmd').innerText = state.base.toFixed(6);
             } else { updateRound(); }
         }
+
+        // --- AIM TRAINER LOGIC (CANVAS) ---
+        const canvas = document.getElementById('aim-canvas');
+        const ctx = canvas.getContext('2d');
+        let gameActive = false;
+        let score = 0;
+        let clicks = 0;
+        let hits = 0;
+        let timeLeft = 30;
+        let targets = [];
+        let timerInterval;
+
+        function resizeCanvas() {
+            canvas.width = document.getElementById('game-container').offsetWidth;
+            canvas.height = document.getElementById('game-container').offsetHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        class Target {
+            constructor() {
+                this.radius = 25; // Tamaño del objetivo
+                this.x = Math.random() * (canvas.width - this.radius * 2) + this.radius;
+                this.y = Math.random() * (canvas.height - this.radius * 2) + this.radius;
+                this.color = '#00e676';
+                this.born = Date.now();
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                // Inner circle
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius * 0.6, 0, Math.PI * 2);
+                ctx.fillStyle = '#0f0f0f';
+                ctx.fill();
+                ctx.closePath();
+            }
+        }
+
+        function spawnTargets() {
+            targets = [];
+            for(let i=0; i<3; i++) { // 3 objetivos simultaneos (Gridshot style)
+                targets.push(new Target());
+            }
+            draw();
+        }
+
+        function draw() {
+            if(!gameActive) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            targets.forEach(t => t.draw());
+        }
+
+        function startGame() {
+            resizeCanvas();
+            // Si no se ha calculado sensibilidad, poner un valor por defecto visual
+            if(document.getElementById('trainer-sens-display').innerText === '--') {
+                document.getElementById('trainer-sens-display').innerText = "1.500000"; 
+            }
+
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('game-over').style.display = 'none';
+            
+            score = 0; clicks = 0; hits = 0; timeLeft = 30;
+            updateHud();
+            gameActive = true;
+            spawnTargets();
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateHud();
+                if(timeLeft <= 0) endGame();
+            }, 1000);
+        }
+
+        function endGame() {
+            gameActive = false;
+            clearInterval(timerInterval);
+            document.getElementById('game-over').style.display = 'flex';
+            document.getElementById('final-score').innerText = score;
+            let kps = (hits / 30).toFixed(2);
+            document.getElementById('final-kps').innerText = kps;
+        }
+
+        function updateHud() {
+            document.getElementById('score').innerText = score;
+            document.getElementById('time').innerText = timeLeft + 's';
+            let acc = clicks > 0 ? Math.round((hits / clicks) * 100) : 100;
+            document.getElementById('acc').innerText = acc + '%';
+        }
+
+        canvas.addEventListener('mousedown', (e) => {
+            if(!gameActive) return;
+            clicks++;
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            let hitIndex = -1;
+            // Check click hit (iterate backwards to hit top targets first)
+            for(let i = targets.length - 1; i >= 0; i--) {
+                const t = targets[i];
+                const dist = Math.sqrt((mouseX - t.x)**2 + (mouseY - t.y)**2);
+                if(dist < t.radius) {
+                    hitIndex = i;
+                    break;
+                }
+            }
+
+            if(hitIndex > -1) {
+                hits++;
+                score += 100; // Puntos
+                targets.splice(hitIndex, 1); // Remove target
+                targets.push(new Target()); // Spawn new one immediately
+                draw(); // Redraw
+            }
+            updateHud();
+        });
+
+        // Initialize canvas size
+        resizeCanvas();
+
     </script>
 </body>
 </html>
