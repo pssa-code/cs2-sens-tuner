@@ -1,91 +1,108 @@
-# 🎯 CS2 HUB: AIM GOD v17 - Precision Update
+# 🎯 CS2 HUB: AIM GOD v30 - ULTIMATE EDITION
 
-> **La suite definitiva "All-in-One" para optimización de sistema, calibración de sensibilidad y configuración competitiva en Counter-Strike 2.**
+> **La suite definitiva "All-in-One". Ahora con Aim Trainer integrado, Contador de Usuarios en Vivo y Algoritmo de Sensibilidad Áurea.**
 
-![Version](https://img.shields.io/badge/version-v17.0-00e676?style=for-the-badge)
+![Version](https://img.shields.io/badge/version-v30.0-00e676?style=for-the-badge)
 ![Game](https://img.shields.io/badge/game-CS2-ff1744?style=for-the-badge)
-[![Platform](https://img.shields.io/badge/platform-Web-2979ff?style=for-the-badge)](https://pssa-code.github.io/cs2-sens-tuner/)
+![Status](https://img.shields.io/badge/status-LIVE%20ONLINE-ff0055?style=for-the-badge&animate=pulse)
+[![Platform](https://img.shields.io/badge/platform-Web%20%2F%20Mobile-2979ff?style=for-the-badge)](https://pssa-code.github.io/cs2-sens-tuner/)
 
 ## 📋 Descripción
 
-**CS2 HUB: AIM GOD** es una aplicación web local (single-file) diseñada para jugadores que buscan exprimir cada frame y milisegundo de rendimiento. Esta herramienta centraliza scripts de optimización, bases de datos de configuraciones profesionales y herramientas matemáticas para la puntería.
+**CS2 HUB: AIM GOD v30** es la evolución final de la herramienta de optimización para Counter-Strike 2. Ya no es solo una calculadora; es un ecosistema completo que vive en un solo archivo HTML.
 
-La **Versión 17** introduce un algoritmo PSA rediseñado para alcanzar la máxima precisión técnica permitida por el motor Source 2.
+Esta versión introduce conectividad en tiempo real mediante **Firebase** para ver cuántos jugadores están optimizando su juego simultáneamente, y un **Aim Trainer** nativo para calentar la muñeca sin abrir el juego.
 
-🔗 **Acceder a la herramienta web:** [pssa-code.github.io/cs2-sens-tuner](https://pssa-code.github.io/cs2-sens-tuner/)
-
----
-
-## 🔥 Características Principales
-
-### 1. 🎯 Calibrador PSA (Perfect Sensitivity Approximation) v17
-El núcleo de la herramienta. Un algoritmo matemático de búsqueda binaria para encontrar tu sensibilidad natural.
-* **Precisión Quirúrgica:** Resultados con **6 decimales** (límite del motor del juego).
-* **6 Rondas de Iteración:** Optimizado para converger en el valor perfecto sin fatiga muscular.
-* **Perfiles de Rol Específicos:** Ajuste del algoritmo según tu estilo de juego:
-    * 🛡️ **Híbrido / Estándar**
-    * 🔭 **AWP / Sniper** (Enfoque en micro-ajustes)
-    * ⚓ **Rifler / Support** (Control de spray)
-    * 🏃 **Entry Fragger** (Tracking rápido)
-    * 🦾 **Wrist Aim** (Jugadores de muñeca)
-
-### 2. ➕ Base de Datos de Miras (Pro Crosshairs 2025)
-Colección curada de códigos de importación de los mejores jugadores del mundo.
-* **Jugadores Incluidos:** s1mple, NiKo, ZywOo, m0NESY, donk, ropz, dev1ce, Twistzz, sh1ro, malbsMd, entre otros.
-* **Funcionalidad:** Copiado al portapapeles con un solo clic (`Click-to-Copy`).
-
-### 3. ⚙️ Optimización de Sistema (Windows & Hardware)
-Guías paso a paso y comandos para reducir la latencia del sistema (Input Lag).
-* **Windows Core:** Desactivación de *Core Isolation* y Planes de Energía Ultimate.
-* **SSD & Servicios:** Force TRIM, desactivación de SysMain/Superfetch, Telemetría e Indexado.
-* **Red (TCP/IP):** Implementación del algoritmo *Compound TCP* (CTCP), Flush DNS y configuración de adaptador de red.
-* **Input Lag:** Desactivación de HPET (High Precision Event Timer) y ajustes de buffer en Registro para Mouse/Teclado.
-
-### 4. 🚀 FPS Pro Extremo & Configuración Gráfica
-Sección dedicada a maximizar los FPS según el hardware.
-* **NVIDIA / AMD:** Configuración ideal del panel de control (Baja latencia, Anti-Lag, etc.).
-* **Launch Options:** Parámetros de lanzamiento competitivos y experimentales.
-* **Scripts de Limpieza:** Eliminación profunda de archivos temporales y caché.
-* **Hardware Tier List:** Consejos específicos para gamas altas (RTX 4090) hasta gamas de entrada (GTX 1050).
-
-### 5. 📜 Generador de Autoexec
-Código listo para crear tu archivo `autoexec.cfg`.
-* **Red:** Rates (`786432`) y configuración de interpolación.
-* **Audio:** Mezcla de audio competitiva.
-* **Binds:** Jumpthrow y utilidades esenciales.
+🔗 **Acceder a la herramienta web:** [Tu Link de GitHub Pages Aquí]
 
 ---
 
-## 🛠️ Instalación y Uso
+## 🔥 Nuevas Características (v30)
 
-Al ser una aplicación web estática contenida en un solo archivo, no requiere instalación.
+### 1. 📡 Live User Counter (Tecnología Firebase)
+Sistema de monitorización en tiempo real situado en la barra lateral.
+* **Backend:** Conectado a Google Firebase Realtime Database.
+* **Lógica Inteligente:** Detecta usuarios únicos mediante `localStorage` para evitar duplicados al recargar (F5).
+* **Seguridad:** Reglas de validación JSON implementadas para prevenir inyecciones de datos o borrados masivos.
+* **Indicador Visual:** Animación de pulso "Live" cuando estás conectado.
 
-1.  **Descarga** el archivo `index.html` (o clona este repositorio).
-2.  **Abre** el archivo con tu navegador web favorito (Chrome, Edge, Firefox, Brave).
-3.  **Navega** por las pestañas laterales para acceder a las diferentes herramientas.
-4.  **Haz clic** en los bloques de código (azul neón/negro) para copiarlos automáticamente al portapapeles.
+### 2. 🎮 Reflex Aim Trainer (Canvas Engine)
+Minijuego de entrenamiento integrado directamente en el navegador.
+* **Estilo Gridshot:** 3 objetivos simultáneos que reaparecen al instante.
+* **Métricas en Vivo:**
+    * 🎯 **Score:** Puntuación basada en velocidad.
+    * ⏱️ **Tiempo:** Cuenta regresiva de 30s para presión competitiva.
+    * 📊 **Precisión:** % de clicks efectivos.
+    * ⚡ **KPS:** Kills Per Second (la métrica clave de los Pros).
+* **Sincronización:** Muestra tu sensibilidad calculada por el PSA directamente en la pantalla de carga del juego.
+
+---
+
+## 🛠️ Herramientas Core
+
+### 3. 🎯 Calibrador PSA (Golden Ratio v27)
+Algoritmo matemático de búsqueda binaria mejorado con la proporción áurea (Phi).
+* **Precisión:** 6 decimales.
+* **Perfiles Nuevos:** Se añadieron perfiles para *Wrist Aim* y *Entry Fragger*.
+* **Feedback Visual:** Medidor de "Agresividad" del algoritmo según la ronda.
+
+### 4. ➕ Pro Crosshairs Database (2025)
+Base de datos masiva con códigos de importación directa.
+* **Nuevas Adiciones:** donk, m0NESY, malbsMd, jl, w0nderful, frozen, entre otros.
+* **Roles:** Clasificados por AWP, Rifler, Entry e IGL.
+
+### 5. 🚀 FPS Pro Extremo & Hardware
+La guía de optimización más agresiva hasta la fecha.
+* **FPS Ultra:** Variables ocultas del motor Source 2 (`r_drawmodeldecals 0`, `cl_ragdoll_force_count 0`, etc.).
+* **Registry Tweaks:** Modificaciones al registro de Windows para priorizar la GPU y reducir la latencia DPC.
+* **Launch Options:** Parámetros seguros y experimentales para gamas altas (RTX 4090) y bajas.
+
+### 6. ⚡ Optimización de Latencia (Input Lag)
+* **Windows Core:** Desactivación de *Core Isolation* y *SysMain*.
+* **HPET:** Instrucciones para deshabilitar el *High Precision Event Timer* en BIOS y Windows.
+* **Red:** Algoritmo *CTCP* (Compound TCP) y eliminación de bufferbloat.
+* **Mouse:** Fix de registro para aumentar el buffer de datos del ratón (`MouseDataQueueSize`).
+
+---
+
+## 💻 Instalación y Uso
+
+### Opción A: Uso Web (Recomendado)
+Simplemente entra al enlace de GitHub Pages. La base de datos ya está conectada.
+
+### Opción B: Uso Local / Clonar
+Si descargas el código, necesitas tu propia base de datos para el contador:
+1. Crea un proyecto en [Firebase Console](https://console.firebase.google.com/).
+2. Crea una **Realtime Database**.
+3. Copia tu `firebaseConfig` (API Key, ProjectId, etc.).
+4. Reemplaza la variable `const firebaseConfig` al final del archivo `index.html`.
 
 ---
 
 ## ⚠️ Advertencia y Responsabilidad
 
-Esta herramienta proporciona comandos avanzados que modifican la configuración de Windows (Regedit, Servicios, CMD) y del juego.
-
-> **IMPORTANTE:**
-> * Crea siempre un **Punto de Restauración** en Windows antes de aplicar cambios en el registro o servicios.
-> * Los ajustes de la pestaña **"FPS Pro Extremo"** son agresivos. Úsalos bajo tu propia responsabilidad y verifica la estabilidad de tu sistema.
+> **USO AVANZADO:**
+> Las pestañas marcadas con ⚠️ o **"Extremo"** contienen comandos que modifican profundamente Windows.
+> * **FPS Pro:** Desactiva efectos visuales del juego que no se pueden revertir sin quitar el autoexec.
+> * **Registry:** Siempre haz un backup antes de ejecutar archivos `.reg`.
+> * **Launch Options:** Si el juego se cierra, borra los parámetros de lanzamiento.
 
 ---
 
-## 💻 Tecnologías
+## 🏗️ Stack Tecnológico
 
-* **HTML5**
-* **CSS3:** Variables CSS, Flexbox, Grid, Animaciones y diseño responsivo oscuro.
-* **JavaScript (Vanilla):** Lógica del calculador PSA y gestión del portapapeles.
+* **Frontend:** HTML5, CSS3 (Variables, Flexbox, Animations).
+* **Scripting:** JavaScript Vanilla (ES6+).
+* **Backend:** Firebase SDK 8.10.1 (Realtime Database).
+* **Graphics:** HTML5 Canvas API (para el Aim Trainer).
 
 ---
 
 ## 📝 Créditos
 
-* **Desarrollo:** Optimizado para la comunidad competitiva.
-* **Datos:** Basados en configuraciones de *HLTV* y *ProSettings* (Actualizado 2025).
+Creado para la comunidad competitiva.
+* **Datos de Pro Players:** HLTV & ProSettings.net
+* **Optimización:** Basado en documentación técnica de Source 2 y Windows Kernel.
+
+---
+*CS2 HUB: AIM GOD v30 © 2025*
