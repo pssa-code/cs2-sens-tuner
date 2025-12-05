@@ -13,7 +13,7 @@
 
 Esta versión introduce conectividad en tiempo real mediante **Firebase** para ver cuántos jugadores están optimizando su juego simultáneamente, y un **Aim Trainer** nativo para calentar la muñeca sin abrir el juego.
 
-🔗 **Acceder a la herramienta web:** [Tu Link de GitHub Pages Aquí]
+🔗 **Acceder a la herramienta web:** [https://pssa-code.github.io/cs2-sens-tuner/]
 
 ---
 
