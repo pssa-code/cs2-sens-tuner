@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS2 HUB: AIM GOD v30 - TRAINER INTEGRATED</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
     <style>
         :root {
             --bg: #0f0f0f;
@@ -43,12 +47,36 @@
             font-size: 1.3rem;
             font-weight: 900;
             color: #fff;
-            margin-bottom: 20px;
+            margin-bottom: 10px; /* Reducido para que quepa el contador */
             border-left: 4px solid var(--accent); /* GOLD */
             padding-left: 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
+
+        /* 🔴 ESTILO DEL CONTADOR EN VIVO (AÑADIDO) */
+        .live-counter {
+            font-size: 0.75rem;
+            color: #ff1744;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 23, 68, 0.1);
+            padding: 8px 15px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 23, 68, 0.2);
+        }
+        .live-dot {
+            width: 8px; height: 8px;
+            background-color: #ff1744;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #ff1744;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
 
         .nav-cat { font-size: 0.7rem; text-transform: uppercase; color: #777; margin: 25px 0 5px 10px; font-weight: 800; border-bottom: 1px solid #333; padding-bottom: 5px; }
 
@@ -178,6 +206,11 @@
 
     <div class="sidebar">
         <div class="logo">CS2 HUB <span>AIM GOD</span></div>
+        
+        <div class="live-counter">
+            <div class="live-dot"></div>
+            ONLINE: <span id="online-count">Cargando...</span>
+        </div>
         
         <div class="nav-cat">Aim & Crosshair</div>
         <button class="nav-btn active" onclick="setTab('calib', this)">🎯 Calibrador PHI</button>
@@ -1161,6 +1194,61 @@ cl_spec_follow_angle 0.0</div>
     </div>
 
     <script>
+        // ==========================================================
+        // 🔴🔴 ZONA DE CONFIGURACIÓN FIREBASE (YA CONFIGURADA) 🔴🔴
+        // ==========================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyCUAAp53z3KHspRWvH0GNPPw1hXzeixTMU",
+            authDomain: "cs2-hub-371d6.firebaseapp.com",
+            databaseURL: "https://cs2-hub-371d6-default-rtdb.firebaseio.com",
+            projectId: "cs2-hub-371d6",
+            storageBucket: "cs2-hub-371d6.firebasestorage.app",
+            messagingSenderId: "376406940776",
+            appId: "1:376406940776:web:7cc75922fa10dd6a4c2fdd",
+            measurementId: "G-ZJHCXR11CL"
+        };
+
+        // --- LÓGICA DEL CONTADOR ---
+        try {
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
+            const db = firebase.database();
+
+            // Lógica de Usuario Único (evita duplicados al refrescar)
+            let userId = localStorage.getItem('cs2_hub_visitor_id');
+            if (!userId) {
+                userId = 'user_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('cs2_hub_visitor_id', userId);
+            }
+
+            const userRef = db.ref('status/' + userId);
+            const countRef = db.ref('status');
+
+            // 1. Cuando entras, te pones ONLINE
+            userRef.set({
+                state: 'online',
+                last_changed: firebase.database.ServerValue.TIMESTAMP
+            });
+
+            // 2. Si cierras la pestaña o pierdes internet, Firebase te borra automáticamente
+            userRef.onDisconnect().remove();
+
+            // 3. Escuchar cambios en el conteo total
+            countRef.on('value', (snapshot) => {
+                const data = snapshot.val();
+                const count = data ? Object.keys(data).length : 0;
+                document.getElementById('online-count').innerText = count + " JUGADORES";
+            });
+
+        } catch (error) {
+            console.error("Error Firebase:", error);
+            document.getElementById('online-count').innerText = "ERROR KEY";
+        }
+
+        // ==========================================================
+        // FUNCIONES DE LA WEB (ORIGINALES)
+        // ==========================================================
         function setTab(id, btn) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
