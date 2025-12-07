@@ -1208,30 +1208,39 @@ cl_spec_follow_angle 0.0</div>
             measurementId: "G-ZJHCXR11CL"
         };
 
-        // --- LÓGICA DEL CONTADOR ---
+        // --- LÓGICA DEL CONTADOR & HISTORIAL ---
         try {
             if (!firebase.apps.length) {
                 firebase.initializeApp(firebaseConfig);
             }
             const db = firebase.database();
 
-            // Lógica de Usuario Único (evita duplicados al refrescar)
+            // Identificar usuario único para este navegador
             let userId = localStorage.getItem('cs2_hub_visitor_id');
             if (!userId) {
                 userId = 'user_' + Math.random().toString(36).substr(2, 9);
                 localStorage.setItem('cs2_hub_visitor_id', userId);
             }
 
+            // 1. GUARDAR EN HISTORIAL (Esto NO SE BORRA al salir)
+            // Cada vez que refresquen la página, guardará una nueva entrada en "visitas_historial"
+            const historyRef = db.ref('visitas_historial');
+            historyRef.push({
+                user: userId,
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
+                device: navigator.userAgent // Info si es PC o Móvil
+            });
+
+            // 2. SISTEMA ONLINE (Esto SÍ se borra al salir para el contador)
             const userRef = db.ref('status/' + userId);
             const countRef = db.ref('status');
 
-            // 1. Cuando entras, te pones ONLINE
             userRef.set({
                 state: 'online',
                 last_changed: firebase.database.ServerValue.TIMESTAMP
             });
 
-            // 2. Si cierras la pestaña o pierdes internet, Firebase te borra automáticamente
+            // Si cierras la pestaña, te borra de 'status' pero NO de 'visitas_historial'
             userRef.onDisconnect().remove();
 
             // 3. Escuchar cambios en el conteo total
